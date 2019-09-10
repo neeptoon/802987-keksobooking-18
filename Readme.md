@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Шеханов](https://up.htmlacademy.ru/javascript/18/user/802987).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Шамрило](https://github.com/shamrilods).
 
 ---
 
