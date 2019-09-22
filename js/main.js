@@ -25,6 +25,17 @@ var photosList = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://
 
 var getAdverts = function () {
   var advertList = [];
+  var maxPrice = 1000;
+  var minPrice = 3000;
+  var minRooms = 1;
+  var maxRooms = 5;
+  var minGuests = 1;
+  var maxGuests = 7;
+  var coordMinX = 0;
+  var coordMaxX = 1024;
+  var coordMinY = 130;
+  var coordMaxY = 630;
+
   for (var i = 0; i < amountAdvert; i++) {
     var advertData = {
       'author': {
@@ -32,12 +43,10 @@ var getAdverts = function () {
       },
       'offer': {
         'title': 'заголовок предложения',
-        // значения возвращаются строкой, исправить
-        'address': advertData['location'],
-        'price': getRandomNumber(1000, 3000),
+        'price': getRandomNumber(minPrice, maxPrice),
         'type': typeList[getRandomNumber(0, typeList.length - 1)],
-        'rooms': getRandomNumber(1, 5),
-        'guests': getRandomNumber(1, 7),
+        'rooms': getRandomNumber(minRooms, maxRooms),
+        'guests': getRandomNumber(minGuests, maxGuests),
         'checkin': checkinTime[getRandomNumber(0, checkinTime.length - 1)],
         'checkout': checkoutTime[getRandomNumber(0, checkoutTime.length - 1)],
         // вернуть массив строк случайной длины
@@ -47,15 +56,17 @@ var getAdverts = function () {
         'photos': photosList
       },
       'location': {
-        'x': getRandomNumber(0, 768),
-        'y': getRandomNumber(130, 630)
+        'x': getRandomNumber(coordMinX, coordMaxX),
+        'y': getRandomNumber(coordMinY, coordMaxY)
       }
     };
+    advertData.offer.address = advertData.location.x + ', ' + advertData.location.y;
     advertList.push(advertData);
   }
   return advertList;
 };
 
 var adverts = getAdverts();
-console.log(adverts[2]);
+console.log(adverts);
+
 
