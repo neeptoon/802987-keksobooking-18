@@ -86,3 +86,24 @@ var adverts = getAdverts();
 
 var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
+
+var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var advertPinList = mapAdverts.querySelector('.map__pins');
+
+var getPin = function (advert) {
+  var advertPinElement = advertPinTemplate.cloneNode(true);
+  advertPinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.x + 'px;';
+  advertPinElement.src = advert.author.avatar;
+  advertPinElement.alt = advert.offer.title;
+  return advertPinElement;
+};
+
+var renderAdverts = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < amountAdvert; i++) {
+    fragment.appendChild(getPin(adverts[i]));
+  }
+  return advertPinList.appendChild(fragment);
+};
+renderAdverts();
+
