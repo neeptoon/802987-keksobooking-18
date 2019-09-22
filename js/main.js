@@ -84,4 +84,5 @@ var getAdverts = function () {
 
 var adverts = getAdverts();
 
-
+var mapAdverts = document.querySelector('.map');
+mapAdverts.classList.remove('map--faded');
