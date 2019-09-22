@@ -15,8 +15,18 @@ var getAvatarNumberList = function () {
   }
   return avatarNumberList;
 };
-
 var avatarNumbers = getAvatarNumberList();
+
+var maxPrice = 10000;
+var minPrice = 50000;
+var minRooms = 1;
+var maxRooms = 3;
+var minGuests = 1;
+var maxGuests = 7;
+var coordMinX = 0;
+var coordMaxX = 1200;
+var coordMinY = 130;
+var coordMaxY = 630;
 var typeList = ['palace', 'flat', 'house', 'bungalo'];
 var checkinTime = ['12:00', '13:00', '14:00'];
 var checkoutTime = ['12:00', '13:00', '14:00'];
@@ -43,17 +53,6 @@ var photos = {
 
 var getAdverts = function () {
   var advertList = [];
-  var maxPrice = 1000;
-  var minPrice = 3000;
-  var minRooms = 1;
-  var maxRooms = 5;
-  var minGuests = 1;
-  var maxGuests = 7;
-  var coordMinX = 0;
-  var coordMaxX = 1024;
-  var coordMinY = 130;
-  var coordMaxY = 630;
-
   for (var i = 0; i < amountAdvert; i++) {
     var advertData = {
       'author': {
@@ -88,22 +87,25 @@ var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
 
 var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var advertPinList = mapAdverts.querySelector('.map__pins');
+var advertPinsList = mapAdverts.querySelector('.map__pins');
+console.log(advertPinsList);
 
 var getPin = function (advert) {
   var advertPinElement = advertPinTemplate.cloneNode(true);
-  advertPinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.x + 'px;';
-  advertPinElement.src = advert.author.avatar;
+  advertPinElement.src = 'advert.author.avatar';
+  advertPinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.y + 'px;';
   advertPinElement.alt = advert.offer.title;
+  console.log(advertPinElement);
   return advertPinElement;
 };
 
-var renderAdverts = function () {
+
+var renderPins = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < amountAdvert; i++) {
     fragment.appendChild(getPin(adverts[i]));
   }
-  return advertPinList.appendChild(fragment);
+  return advertPinsList.appendChild(fragment);
 };
-renderAdverts();
+renderPins();
 
