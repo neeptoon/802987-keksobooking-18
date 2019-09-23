@@ -11,7 +11,7 @@ var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var typeList = ['palace', 'flat', 'house', 'bungalo'];
 var titleList = ['Отличная двушка по цене трешки', 'Холостяцкое гнездышко с видом на море', 'Хата с глухими соседями', 'Квартира в аренду посуточно рядом с клубом', 'Просто отличная квартира', 'Кошатницам вход запрещен'];
-var descriptionList = ['можно с детьми', 'можно с животными', 'можно с детьми животных', 'никаких детей', 'никаких животных']
+var descriptionList = ['можно с детьми', 'можно с животными', 'можно с детьми животных', 'никаких детей', 'никаких животных'];
 var MIN_X = 0;
 var MAX_X = 1200;
 var MIN_Y = 130;
@@ -26,8 +26,7 @@ var getRandomArray = function (arr) {
   arr.sort(function () {
     return 0.5 - Math.random();
   });
-  arr.splice(0, getRandomNumber(0, arr.length - 1));
-  return arr;
+  return arr.splice(0, getRandomNumber(0, arr.length - 1));
 };
 
 var getAdverts = function () {
@@ -86,4 +85,3 @@ var renderPins = function () {
   return advertPinsList.appendChild(fragment);
 };
 renderPins();
-
