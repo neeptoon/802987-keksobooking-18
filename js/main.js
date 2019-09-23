@@ -2,7 +2,7 @@
 var amountAdvert = 8;
 
 var getRandomNumber = function (min, max) {
-  return Math.round(min - 0.5 + Math.random() * max - min + 1);
+  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 };
 
 var getAvatarNumberList = function () {
@@ -88,14 +88,13 @@ mapAdverts.classList.remove('map--faded');
 
 var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
-console.log(advertPinsList);
+
 
 var getPin = function (advert) {
   var advertPinElement = advertPinTemplate.cloneNode(true);
   advertPinElement.src = 'advert.author.avatar';
   advertPinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.y + 'px;';
   advertPinElement.alt = advert.offer.title;
-  console.log(advertPinElement);
   return advertPinElement;
 };
 
