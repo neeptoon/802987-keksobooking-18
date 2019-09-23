@@ -1,67 +1,48 @@
 'use strict';
-var amountAdvert = 8;
 
-var getRandomNumber = function (min, max) {
-  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
-};
-
-
+var AMOUNT_ADVERT = 8;
 var maxPrice = 10000;
 var minPrice = 50000;
 var minRooms = 1;
 var maxRooms = 3;
 var minGuests = 1;
 var maxGuests = 7;
-var coordMinX = 0;
-var coordMaxX = 1200;
-var coordMinY = 130;
-var coordMaxY = 630;
+var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var typeList = ['palace', 'flat', 'house', 'bungalo'];
-var checkinTime = ['12:00', '13:00', '14:00'];
-var checkoutTime = ['12:00', '13:00', '14:00'];
-var features = {
-  list: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  listRandom: function () {
-    var randomList = [];
-    for (var i = 0; i < getRandomNumber(0, features.list.length - 1); i++) {
-      randomList[i] = features.list[i];
-    }
-    return randomList;
-  }
-};
-var photos = {
-  list: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
-  listRandom: function () {
-    var randomList = [];
-    for (var i = 0; i < getRandomNumber(0, photos.list.length - 1); i++) {
-      randomList[i] = photos.list[i];
-    }
-    return randomList;
-  }
+var titleList = ['Отличная двушка по цене трешки', 'Холостяцкое гнездышко с видом на море', 'Хата с глухими соседями', 'Квартира в аренду посуточно рядом с клубом', 'Просто отличная квартира', 'Кошатницам вход запрещен'];
+var MIN_X = 0;
+var MAX_X = 1200;
+var MIN_Y = 130;
+var MAX_Y = 630;
+var TIME = ['12:00', '13:00', '14:00'];
+
+var getRandomNumber = function (min, max) {
+  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 };
 
 var getAdverts = function () {
   var advertList = [];
-  for (var i = 0; i < amountAdvert; i++) {
+  for (var i = 0; i < AMOUNT_ADVERT; i++) {
     var advertData = {
-      'author': {
-        'avatar': 'img/avatars/user0' + (i + 1) + '.png'
+      author: {
+        avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
-      'offer': {
-        'title': 'заголовок предложения',
-        'price': getRandomNumber(minPrice, maxPrice),
-        'type': typeList[getRandomNumber(0, typeList.length - 1)],
-        'rooms': getRandomNumber(minRooms, maxRooms),
-        'guests': getRandomNumber(minGuests, maxGuests),
-        'checkin': checkinTime[getRandomNumber(0, checkinTime.length - 1)],
-        'checkout': checkoutTime[getRandomNumber(0, checkoutTime.length - 1)],
-        'features': features.listRandom(),
-        'description': 'строка с описанием',
-        'photos': photos.listRandom()
+      offer: {
+        title: titleList[getRandomNumber(0, titleList.length - 1)],
+        price: getRandomNumber(minPrice, maxPrice),
+        type: typeList[getRandomNumber(0, typeList.length - 1)],
+        rooms: getRandomNumber(minRooms, maxRooms),
+        guests: getRandomNumber(minGuests, maxGuests),
+        checkin: TIME[getRandomNumber(0, TIME.length - 1)],
+        checkout: TIME[getRandomNumber(0, TIME.length - 1)],
+        features: features.listRandom(),
+        description: 'строка с описанием',
+        photos: photos.listRandom()
       },
-      'location': {
-        'x': getRandomNumber(coordMinX, coordMaxX),
-        'y': getRandomNumber(coordMinY, coordMaxY)
+      location: {
+        x: getRandomNumber(MIN_X, MAX_X),
+        y: getRandomNumber(MIN_Y, MAX_Y)
       }
     };
     advertData.offer.address = advertData.location.x + ', ' + advertData.location.y;
@@ -75,7 +56,6 @@ console.log(adverts);
 
 var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
-
 var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 
@@ -91,7 +71,7 @@ var getPin = function (advert) {
 
 var renderPins = function () {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < amountAdvert; i++) {
+  for (var i = 0; i < AMOUNT_ADVERT; i++) {
     fragment.appendChild(getPin(adverts[i]));
   }
   return advertPinsList.appendChild(fragment);
