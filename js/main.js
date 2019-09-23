@@ -11,6 +11,7 @@ var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var typeList = ['palace', 'flat', 'house', 'bungalo'];
 var titleList = ['Отличная двушка по цене трешки', 'Холостяцкое гнездышко с видом на море', 'Хата с глухими соседями', 'Квартира в аренду посуточно рядом с клубом', 'Просто отличная квартира', 'Кошатницам вход запрещен'];
+var descriptionList = ['можно с детьми', 'можно с животными', 'можно с детьми животных', 'никаких детей', 'никаких животных']
 var MIN_X = 0;
 var MAX_X = 1200;
 var MIN_Y = 130;
@@ -19,6 +20,14 @@ var TIME = ['12:00', '13:00', '14:00'];
 
 var getRandomNumber = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+};
+
+var getRandomArray = function (arr) {
+  arr.sort(function () {
+    return 0.5 - Math.random();
+  });
+  arr.splice(0, getRandomNumber(0, arr.length - 1));
+  return arr;
 };
 
 var getAdverts = function () {
@@ -36,9 +45,9 @@ var getAdverts = function () {
         guests: getRandomNumber(minGuests, maxGuests),
         checkin: TIME[getRandomNumber(0, TIME.length - 1)],
         checkout: TIME[getRandomNumber(0, TIME.length - 1)],
-        features: features.listRandom(),
-        description: 'строка с описанием',
-        photos: photos.listRandom()
+        features: getRandomArray(features),
+        description: descriptionList[getRandomNumber(0, descriptionList.length - 1)],
+        photos: getRandomArray(photos)
       },
       location: {
         x: getRandomNumber(MIN_X, MAX_X),
