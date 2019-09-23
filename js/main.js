@@ -31,13 +31,19 @@ var getRandomArray = function (arr) {
 
 var getAdverts = function () {
   var advertList = [];
+
   for (var i = 0; i < AMOUNT_ADVERT; i++) {
+    var location = {
+      x: getRandomNumber(MIN_X, MAX_X),
+      y: getRandomNumber(MIN_Y, MAX_Y)
+    };
     var advertData = {
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
       offer: {
         title: titleList[getRandomNumber(0, titleList.length - 1)],
+        address: location.x + '' + location.y,
         price: getRandomNumber(minPrice, maxPrice),
         type: typeList[getRandomNumber(0, typeList.length - 1)],
         rooms: getRandomNumber(minRooms, maxRooms),
@@ -48,34 +54,30 @@ var getAdverts = function () {
         description: descriptionList[getRandomNumber(0, descriptionList.length - 1)],
         photos: getRandomArray(photos)
       },
-      location: {
-        x: getRandomNumber(MIN_X, MAX_X),
-        y: getRandomNumber(MIN_Y, MAX_Y)
-      }
+      location: location
     };
-    advertData.offer.address = advertData.location.x + ', ' + advertData.location.y;
     advertList.push(advertData);
   }
   return advertList;
 };
 
 var adverts = getAdverts();
-console.log(adverts);
 
 var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
 var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var advertPinImg = advertPinTemplate.querySelector('img');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 
 
 var getPin = function (advert) {
   var advertPinElement = advertPinTemplate.cloneNode(true);
-  advertPinElement.src = 'advert.author.avatar';
-  advertPinElement.style = 'left: ' + advert.location.x + 'px;' + ' top: ' + advert.location.y + 'px;';
+  advertPinImg.src = advert.author.avatar;
+  advertPinElement.style.left = advert.location.x + 'px';
+  advertPinElement.style.top = advert.location.y + 'px';
   advertPinElement.alt = advert.offer.title;
   return advertPinElement;
 };
-
 
 var renderPins = function () {
   var fragment = document.createDocumentFragment();
@@ -85,3 +87,5 @@ var renderPins = function () {
   return advertPinsList.appendChild(fragment);
 };
 renderPins();
+
+
