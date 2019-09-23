@@ -5,17 +5,6 @@ var getRandomNumber = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 };
 
-var getAvatarNumberList = function () {
-  var avatarNumberList = [];
-  while (avatarNumberList.length < amountAdvert) {
-    var avatarNumber = '0' + getRandomNumber(0, amountAdvert);
-    if (avatarNumberList.indexOf(avatarNumber) === -1) {
-      avatarNumberList.push(avatarNumber);
-    }
-  }
-  return avatarNumberList;
-};
-var avatarNumbers = getAvatarNumberList();
 
 var maxPrice = 10000;
 var minPrice = 50000;
@@ -56,7 +45,7 @@ var getAdverts = function () {
   for (var i = 0; i < amountAdvert; i++) {
     var advertData = {
       'author': {
-        'avatar': 'img/avatars/user' + avatarNumbers[i] + '.png'
+        'avatar': 'img/avatars/user0' + (i + 1) + '.png'
       },
       'offer': {
         'title': 'заголовок предложения',
@@ -82,6 +71,7 @@ var getAdverts = function () {
 };
 
 var adverts = getAdverts();
+console.log(adverts);
 
 var mapAdverts = document.querySelector('.map');
 mapAdverts.classList.remove('map--faded');
