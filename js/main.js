@@ -1,6 +1,10 @@
 'use strict';
 
 var AMOUNT_ADVERT = 8;
+var mapAdverts = document.querySelector('.map');
+mapAdverts.classList.remove('map--faded');
+var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var advertPinsList = mapAdverts.querySelector('.map__pins');
 var maxPrice = 10000;
 var minPrice = 50000;
 var minRooms = 1;
@@ -17,6 +21,8 @@ var MAX_X = 1200;
 var MIN_Y = 130;
 var MAX_Y = 630;
 var TIME = ['12:00', '13:00', '14:00'];
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 
 var getRandomNumber = function (min, max) {
   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -31,7 +37,6 @@ var getRandomArray = function (arr) {
 
 var getAdverts = function () {
   var advertList = [];
-
   for (var i = 0; i < AMOUNT_ADVERT; i++) {
     var location = {
       x: getRandomNumber(MIN_X, MAX_X),
@@ -43,7 +48,7 @@ var getAdverts = function () {
       },
       offer: {
         title: titleList[getRandomNumber(0, titleList.length - 1)],
-        address: location.x + '' + location.y,
+        address: location.x + ' ' + location.y,
         price: getRandomNumber(minPrice, maxPrice),
         type: typeList[getRandomNumber(0, typeList.length - 1)],
         rooms: getRandomNumber(minRooms, maxRooms),
@@ -63,19 +68,12 @@ var getAdverts = function () {
 
 var adverts = getAdverts();
 
-var mapAdverts = document.querySelector('.map');
-mapAdverts.classList.remove('map--faded');
-var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var advertPinImg = advertPinTemplate.querySelector('img');
-var advertPinsList = mapAdverts.querySelector('.map__pins');
-
-
 var getPin = function (advert) {
   var advertPinElement = advertPinTemplate.cloneNode(true);
+  var advertPinImg = advertPinElement.querySelector('img');
   advertPinImg.src = advert.author.avatar;
-  advertPinElement.style.left = advert.location.x + 'px';
-  advertPinElement.style.top = advert.location.y + 'px';
-  advertPinElement.alt = advert.offer.title;
+  advertPinElement.style.left = (advert.location.x - PIN_WIDTH / 2) + 'px';
+  advertPinElement.style.top = (advert.location.y - PIN_HEIGHT) + 'px';
   return advertPinElement;
 };
 
@@ -87,5 +85,3 @@ var renderPins = function () {
   return advertPinsList.appendChild(fragment);
 };
 renderPins();
-
-
