@@ -32,7 +32,7 @@ var getRandomArray = function (arr) {
   arr.sort(function () {
     return 0.5 - Math.random();
   });
-  return arr.splice(0, getRandomNumber(0, arr.length - 1));
+  return arr.splice(1, getRandomNumber(0, arr.length - 1));
 };
 
 var getAdverts = function () {
