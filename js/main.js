@@ -85,3 +85,12 @@ var renderPins = function () {
   return advertPinsList.appendChild(fragment);
 };
 renderPins();
+
+var form = mapAdverts.querySelector('.map__filters');
+var formItems = form.children;
+
+for (var i = 0; i < formItems.length; i++) {
+  formItems[i].setAttribute('disabled', 'disabled');
+}
+console.log(formItems[2]);
+
