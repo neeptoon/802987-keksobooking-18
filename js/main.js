@@ -123,8 +123,8 @@ var getAdvertCard = function (advert) {
   }
   advertCardCapacity.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
   advertCardCheck.textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
-  for (var i = 0; i < advert.offer.features.length; i++) {
-    advertCardFeatures[i].textContent = advert.offer.features[i];
+  for (var i = 0; i < advertCardFeatures.length; i++) {
+    advertCardFeatures[i].classList.add('hidden');
   }
   advertCardDescription.textContent = advert.offer.description;
   advertCardPhotos.removeChild(advertCardPhoto);
