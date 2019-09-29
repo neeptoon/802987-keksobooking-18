@@ -132,6 +132,16 @@ var getAdvertCard = function (advert) {
     advertCardFeatures.removeChild(advertCardFeaturesElements[i]);
   }
 
+  advert.offer.features.forEach(function (item) {
+    var fragment = document.createDocumentFragment();
+    var li = document.createElement('li');
+    li.classList.add('popup__feature');
+    li.classList.add('popup__feature--' + item);
+    fragment.appendChild(li);
+    advertCardFeatures.appendChild(fragment);
+  });
+
+
   for (var index = 0; index < advert.offer.photos.length; index++) {
     var addPhoto = advertCardPhoto.cloneNode(true);
     advertCardPhotos.appendChild(addPhoto);
