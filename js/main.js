@@ -11,6 +11,8 @@ var PIN_HEIGHT = 70;
 
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
+var filtersForm = filters.querySelector('.map__filters');
+var filtersFormFields = filtersForm.children;
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.children;
@@ -154,6 +156,11 @@ var renderCards = function () {
 };
 renderCards();
 
-for (var i = 0; i < advertFormFields.length; i++) {
-  advertFormFields[i].setAttribute('disabled', 'disabled');
-}
+[].forEach.call(advertFormFields, function (item) {
+  item.setAttribute('disabled', 'disabled');
+});
+
+[].forEach.call(filtersFormFields, function (item) {
+  item.setAttribute('disabled', 'disabled');
+});
+
