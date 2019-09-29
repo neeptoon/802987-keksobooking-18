@@ -69,8 +69,9 @@ var getAdverts = function () {
   }
   return advertList;
 };
-
+// console.log(features);
 var adverts = getAdverts();
+// console.log(features);
 
 var getPin = function (advert) {
   var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -104,7 +105,8 @@ var getAdvertCard = function (advert) {
   var advertCardType = advertCardElement.querySelector('.popup__type');
   var advertCardCapacity = advertCardElement.querySelector('.popup__text--capacity');
   var advertCardCheck = advertCardElement.querySelector('.popup__text--time');
-  var advertCardFeatures = advertCardElement.querySelectorAll('.popup__feature');
+  var advertCardFeatures = advertCardElement.querySelector('.popup__features');
+  var advertCardFeaturesElements = advertCardFeatures.querySelectorAll('.popup__feature');
   var advertCardDescription = advertCardElement.querySelector('.popup__description');
   var advertCardPhotos = advertCardElement.querySelector('.popup__photos');
   var advertCardPhoto = advertCardPhotos.querySelector('.popup__photo');
@@ -126,8 +128,8 @@ var getAdvertCard = function (advert) {
   advertCardPhotos.removeChild(advertCardPhoto);
   advertCardAvatar.src = advert.author.avatar;
 
-  for (var i = 0; i < advertCardFeatures.length; i++) {
-    advertCardFeatures[i].classList.add('hidden');
+  for (var i = 0; i < advertCardFeaturesElements.length; i++) {
+    advertCardFeatures.removeChild(advertCardFeaturesElements[i]);
   }
 
   for (var index = 0; index < advert.offer.photos.length; index++) {
@@ -145,5 +147,3 @@ var renderCards = function () {
   return mapAdverts;
 };
 renderCards();
-
-
