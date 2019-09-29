@@ -1,7 +1,6 @@
 'use strict';
 
 var AMOUNT_ADVERT = 8;
-
 var MIN_X = 0;
 var MAX_X = 1200;
 var MIN_Y = 130;
@@ -69,9 +68,8 @@ var getAdverts = function () {
   }
   return advertList;
 };
-// console.log(features);
+
 var adverts = getAdverts();
-// console.log(features);
 
 var getPin = function (advert) {
   var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -86,15 +84,22 @@ var getPin = function (advert) {
 var renderPins = function () {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < AMOUNT_ADVERT; i++) {
-    fragment.appendChild(getPin(adverts[i]));
-  }
+  adverts.forEach(function (item) {
+    fragment.appendChild(getPin(item));
+  });
 
   return advertPinsList.appendChild(fragment);
 };
 renderPins();
 
 mapAdverts.classList.remove('map--faded');
+
+var AccommodationTypes = {
+  BUNGALO: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
+  FLAT: 'Квартира'
+};
 
 var getAdvertCard = function (advert) {
   var advertCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
@@ -106,17 +111,10 @@ var getAdvertCard = function (advert) {
   var advertCardCapacity = advertCardElement.querySelector('.popup__text--capacity');
   var advertCardCheck = advertCardElement.querySelector('.popup__text--time');
   var advertCardFeatures = advertCardElement.querySelector('.popup__features');
-  var advertCardFeaturesElements = advertCardFeatures.querySelectorAll('.popup__feature');
   var advertCardDescription = advertCardElement.querySelector('.popup__description');
   var advertCardPhotos = advertCardElement.querySelector('.popup__photos');
   var advertCardPhoto = advertCardPhotos.querySelector('.popup__photo');
   var advertCardAvatar = advertCardElement.querySelector('.popup__avatar');
-  var AccommodationTypes = {
-    BUNGALO: 'Бунгало',
-    HOUSE: 'Дом',
-    PALACE: 'Дворец',
-    FLAT: 'Квартира'
-  };
 
   advertCardTitle.textContent = advert.offer.title;
   advertCardAddress.textContent = advert.offer.address;
@@ -128,9 +126,7 @@ var getAdvertCard = function (advert) {
   advertCardPhotos.removeChild(advertCardPhoto);
   advertCardAvatar.src = advert.author.avatar;
 
-  for (var i = 0; i < advertCardFeaturesElements.length; i++) {
-    advertCardFeatures.removeChild(advertCardFeaturesElements[i]);
-  }
+  advertCardFeatures.textContent = '';
 
   advert.offer.features.forEach(function (item) {
     var fragment = document.createDocumentFragment();
@@ -141,12 +137,11 @@ var getAdvertCard = function (advert) {
     advertCardFeatures.appendChild(fragment);
   });
 
-
-  for (var index = 0; index < advert.offer.photos.length; index++) {
+  advert.offer.photos.forEach(function (item) {
     var addPhoto = advertCardPhoto.cloneNode(true);
     advertCardPhotos.appendChild(addPhoto);
-    addPhoto.src = advert.offer.photos[index];
-  }
+    addPhoto.src = item;
+  });
   return advertCardElement;
 };
 
