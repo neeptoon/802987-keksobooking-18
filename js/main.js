@@ -12,6 +12,9 @@ var PIN_HEIGHT = 70;
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
+var advertForm = document.querySelector('.ad-form');
+var advertFormFields = advertForm.children;
+
 var maxPrice = 10000;
 var minPrice = 50000;
 var minRooms = 1;
@@ -150,3 +153,7 @@ var renderCards = function () {
   return mapAdverts;
 };
 renderCards();
+
+for (var i = 0; i < advertFormFields.length; i++) {
+  advertFormFields[i].setAttribute('disabled', 'disabled');
+}
