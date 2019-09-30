@@ -18,6 +18,7 @@ var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.children;
 var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
+var addressField = advertForm.querySelector('#address');
 
 var maxPrice = 10000;
 var minPrice = 50000;
@@ -180,8 +181,13 @@ var advertPageActivation = function () {
   advertForm.classList.remove('ad-form--disabled');
 };
 
+var getAddressPin = function () {
+  addressField.value = Number(mapPinActivation.style.left.slice(0, mapPinActivation.style.left.length - 2)) + PIN_WIDTH / 2 + ' ' + Number(+mapPinActivation.style.top.slice(0, mapPinActivation.style.top.length - 2) + PIN_HEIGHT);
+};
+
 mapPinActivation.addEventListener('mousedown', function () {
   advertPageActivation();
+  getAddressPin();
 });
 
 mapPinActivation.addEventListener('keydown', function (evt) {
@@ -189,3 +195,5 @@ mapPinActivation.addEventListener('keydown', function (evt) {
     advertPageActivation();
   }
 });
+
+
