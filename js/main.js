@@ -183,7 +183,6 @@ var advertPageActivation = function (evt) {
   advertForm.classList.remove('ad-form--disabled');
 
   addressField.value = evt.currentTarget.offsetLeft + PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + PIN_HEIGHT);
-  console.log(evt)
 };
 
 mapPinActivation.addEventListener('mousedown', function (evt) {
@@ -197,7 +196,7 @@ mapPinActivation.addEventListener('keydown', function (evt) {
 });
 
 var checkForm = function () {
-  if (roomNumber.value < capacity.value) {
+  if (+roomNumber.value < +capacity.value) {
     roomNumber.setCustomValidity('Не хватит места для гостей');
   } else {
     roomNumber.setCustomValidity('');
