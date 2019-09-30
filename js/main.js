@@ -19,6 +19,8 @@ var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.children;
 var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
 var addressField = advertForm.querySelector('#address');
+var roomNumber = advertForm.querySelector('#room_number');
+var capacity = advertForm.querySelector('#capacity');
 
 var maxPrice = 10000;
 var minPrice = 50000;
@@ -167,7 +169,7 @@ renderCards();
   item.setAttribute('disabled', 'disabled');
 });
 
-var advertPageActivation = function () {
+var advertPageActivation = function (evt) {
   [].forEach.call(advertFormFields, function (item) {
     item.removeAttribute('disabled', 'disabled');
   });
@@ -179,21 +181,31 @@ var advertPageActivation = function () {
   mapAdverts.classList.remove('map--faded');
 
   advertForm.classList.remove('ad-form--disabled');
+
+  addressField.value = evt.currentTarget.offsetLeft + PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + PIN_HEIGHT);
+  console.log(evt)
 };
 
-var getAddressPin = function () {
-  addressField.value = Number(mapPinActivation.style.left.slice(0, mapPinActivation.style.left.length - 2)) + PIN_WIDTH / 2 + ' ' + Number(+mapPinActivation.style.top.slice(0, mapPinActivation.style.top.length - 2) + PIN_HEIGHT);
-};
-
-mapPinActivation.addEventListener('mousedown', function () {
-  advertPageActivation();
-  getAddressPin();
+mapPinActivation.addEventListener('mousedown', function (evt) {
+  advertPageActivation(evt);
 });
 
 mapPinActivation.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    advertPageActivation();
+    advertPageActivation(evt);
   }
+});
+
+var checkForm = function () {
+  if (roomNumber.value < capacity.value) {
+    roomNumber.setCustomValidity('Не хватит места для гостей');
+  } else {
+    roomNumber.setCustomValidity('');
+  }
+};
+
+advertForm.addEventListener('change', function () {
+  checkForm();
 });
 
 
