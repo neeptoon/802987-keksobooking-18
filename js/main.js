@@ -8,6 +8,7 @@ var MAX_Y = 630;
 var TIME = ['12:00', '13:00', '14:00'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var ENTER_KEYCODE = 13;
 
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
@@ -16,6 +17,7 @@ var filtersFormFields = filtersForm.children;
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.children;
+var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
 
 var maxPrice = 10000;
 var minPrice = 50000;
@@ -164,3 +166,26 @@ renderCards();
   item.setAttribute('disabled', 'disabled');
 });
 
+var advertPageActivation = function () {
+  [].forEach.call(advertFormFields, function (item) {
+    item.removeAttribute('disabled', 'disabled');
+  });
+
+  [].forEach.call(filtersFormFields, function (item) {
+    item.removeAttribute('disabled', 'disabled');
+  });
+
+  mapAdverts.classList.remove('map--faded');
+
+  advertForm.classList.remove('ad-form--disabled');
+};
+
+mapPinActivation.addEventListener('mousedown', function () {
+  advertPageActivation();
+});
+
+mapPinActivation.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    advertPageActivation();
+  }
+});
