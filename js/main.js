@@ -8,12 +8,14 @@ var MAX_Y = 630;
 var TIME = ['12:00', '13:00', '14:00'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+
 var ENTER_KEYCODE = 13;
 
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
 var filtersForm = filters.querySelector('.map__filters');
 var filtersFormFields = filtersForm.children;
+
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.children;
@@ -102,6 +104,10 @@ var renderPins = function () {
 };
 renderPins();
 
+
+mapAdverts.classList.remove('map--faded');
+
+
 var AccommodationTypes = {
   BUNGALO: 'Бунгало',
   HOUSE: 'Дом',
@@ -161,6 +167,7 @@ var renderCards = function () {
 };
 renderCards();
 
+
 [].forEach.call(advertFormFields, function (item) {
   item.setAttribute('disabled', 'disabled');
 });
@@ -206,5 +213,6 @@ var checkForm = function () {
 advertForm.addEventListener('change', function () {
   checkForm();
 });
+
 
 
