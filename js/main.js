@@ -13,10 +13,10 @@ var ENTER_KEYCODE = 13;
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
 var filtersForm = filters.querySelector('.map__filters');
-var filtersFormFields = filtersForm.children;
+var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
-var advertFormFields = advertForm.children;
+var advertFormFields = advertForm.querySelectorAll('fieldset, select');
 var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
 var addressField = advertForm.querySelector('#address');
 var roomNumber = advertForm.querySelector('#room_number');
@@ -161,21 +161,21 @@ var renderCards = function () {
 };
 renderCards();
 
-[].forEach.call(advertFormFields, function (item) {
-  item.setAttribute('disabled', 'disabled');
+advertFormFields.forEach(function (item) {
+  item.disabled = true;
 });
 
-[].forEach.call(filtersFormFields, function (item) {
-  item.setAttribute('disabled', 'disabled');
+filtersFormFields.forEach(function (item) {
+  item.disabled = true;
 });
 
-var advertPageActivation = function (evt) {
-  [].forEach.call(advertFormFields, function (item) {
-    item.removeAttribute('disabled', 'disabled');
+var activationPageAdvert = function (evt) {
+  advertFormFields.forEach(function (item) {
+    item.disabled = false;
   });
 
-  [].forEach.call(filtersFormFields, function (item) {
-    item.removeAttribute('disabled', 'disabled');
+  filtersFormFields.forEach(function (item) {
+    item.disabled = false;
   });
 
   mapAdverts.classList.remove('map--faded');
@@ -186,23 +186,23 @@ var advertPageActivation = function (evt) {
 };
 
 mapPinActivation.addEventListener('mousedown', function (evt) {
-  advertPageActivation(evt);
+  activationPageAdvert(evt);
 });
 
 mapPinActivation.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    advertPageActivation(evt);
+    activationPageAdvert(evt);
   }
 });
 
 var checkForm = function () {
   if (+roomNumber.value < +capacity.value) {
     roomNumber.setCustomValidity('Не хватит места для гостей');
+  } else if (roomNumber.value.length > capacity.value.length && +capacity.value !== 0) {
+    roomNumber.setCustomValidity('Размещение гостей не предусмотрено');
   } else {
     roomNumber.setCustomValidity('');
   }
 };
 
-advertForm.addEventListener('change', function () {
-  checkForm();
-});
+advertForm.addEventListener('change', checkForm);
