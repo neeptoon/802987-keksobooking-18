@@ -206,5 +206,3 @@ var checkForm = function () {
 advertForm.addEventListener('change', function () {
   checkForm();
 });
-
-
