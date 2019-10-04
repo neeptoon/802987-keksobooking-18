@@ -8,6 +8,8 @@ var MAX_Y = 630;
 var TIME = ['12:00', '13:00', '14:00'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var MAIN_PIN_HEIGHT = 72;
+var MAIN_PIN_WIDTH = 84;
 var ENTER_KEYCODE = 13;
 
 var mapAdverts = document.querySelector('.map');
@@ -100,7 +102,6 @@ var renderPins = function () {
 
   return advertPinsList.appendChild(fragment);
 };
-renderPins();
 
 var AccommodationTypes = {
   BUNGALO: 'Бунгало',
@@ -159,10 +160,10 @@ var renderCards = function () {
   mapAdverts.insertBefore(firstAdvertCard, filters);
   return mapAdverts;
 };
-renderCards();
+
 
 var getAdvertAddress = function (evt) {
-  addressField.value = evt.currentTarget.offsetLeft + PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + PIN_HEIGHT);
+  addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
 };
 
 var setActivePage = function (isActivePage) {
@@ -176,8 +177,12 @@ var setActivePage = function (isActivePage) {
 
   if (isActivePage) {
     mapAdverts.classList.remove('map--faded');
-
     advertForm.classList.remove('ad-form--disabled');
+    renderCards();
+    renderPins();
+  } else {
+    mapAdverts.classList.add('map--faded');
+    advertForm.classList.add('ad-form--disabled');
   }
 };
 
@@ -196,14 +201,13 @@ mapPinActivation.addEventListener('keydown', function (evt) {
 });
 
 var checkForm = function () {
+  roomNumber.setCustomValidity('');
   if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
     roomNumber.setCustomValidity('Не хватит места для гостей');
   } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
     capacity.setCustomValidity('Без гостей, ради бога!');
   } else if (roomNumber.value > capacity.value && capacity.value === '0') {
     roomNumber.setCustomValidity('Без гостей только 100 комнат');
-  } else {
-    roomNumber.setCustomValidity('');
   }
 };
 
