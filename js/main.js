@@ -202,14 +202,14 @@ mapPinActivation.addEventListener('keydown', function (evt) {
 
 var checkForm = function () {
   roomNumber.setCustomValidity('');
+  capacity.setCustomValidity('');
   if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
     roomNumber.setCustomValidity('Не хватит места для гостей');
   } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
     capacity.setCustomValidity('Без гостей, ради бога!');
-  } else if (roomNumber.value > capacity.value && capacity.value === '0') {
+  } else if (roomNumber.value > capacity.value && capacity.value === '0' && +roomNumber.value !== 100) {
     roomNumber.setCustomValidity('Без гостей только 100 комнат');
   }
 };
 
-advertForm.addEventListener('change', checkForm);
-
+advertForm.addEventListener('click', checkForm);
