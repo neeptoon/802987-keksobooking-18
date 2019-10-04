@@ -161,48 +161,51 @@ var renderCards = function () {
 };
 renderCards();
 
-advertFormFields.forEach(function (item) {
-  item.disabled = true;
-});
-
-filtersFormFields.forEach(function (item) {
-  item.disabled = true;
-});
-
-var activationPageAdvert = function (evt) {
-  advertFormFields.forEach(function (item) {
-    item.disabled = false;
-  });
-
-  filtersFormFields.forEach(function (item) {
-    item.disabled = false;
-  });
-
-  mapAdverts.classList.remove('map--faded');
-
-  advertForm.classList.remove('ad-form--disabled');
-
+var getAdvertAddress = function (evt) {
   addressField.value = evt.currentTarget.offsetLeft + PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + PIN_HEIGHT);
 };
 
+var setActivePage = function (isActivePage) {
+  advertFormFields.forEach(function (item) {
+    item.disabled = !isActivePage;
+  });
+
+  filtersFormFields.forEach(function (item) {
+    item.disabled = !isActivePage;
+  });
+
+  if (isActivePage) {
+    mapAdverts.classList.remove('map--faded');
+
+    advertForm.classList.remove('ad-form--disabled');
+  }
+};
+
+setActivePage(false);
+
 mapPinActivation.addEventListener('mousedown', function (evt) {
-  activationPageAdvert(evt);
+  setActivePage(true);
+  getAdvertAddress(evt);
 });
 
 mapPinActivation.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    activationPageAdvert(evt);
+    setActivePage(true);
+    getAdvertAddress(evt);
   }
 });
 
 var checkForm = function () {
-  if (+roomNumber.value < +capacity.value) {
+  if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
     roomNumber.setCustomValidity('Не хватит места для гостей');
-  } else if (roomNumber.value.length > capacity.value.length && +capacity.value !== 0) {
-    roomNumber.setCustomValidity('Размещение гостей не предусмотрено');
+  } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
+    capacity.setCustomValidity('Без гостей, ради бога!');
+  } else if (roomNumber.value > capacity.value && capacity.value === '0') {
+    roomNumber.setCustomValidity('Без гостей только 100 комнат');
   } else {
     roomNumber.setCustomValidity('');
   }
 };
 
 advertForm.addEventListener('change', checkForm);
+
