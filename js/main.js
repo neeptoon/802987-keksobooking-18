@@ -8,10 +8,22 @@ var MAX_Y = 630;
 var TIME = ['12:00', '13:00', '14:00'];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var MAIN_PIN_HEIGHT = 72;
+var MAIN_PIN_WIDTH = 84;
+var ENTER_KEYCODE = 13;
 
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
+var filtersForm = filters.querySelector('.map__filters');
+var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
+var advertForm = document.querySelector('.ad-form');
+var advertFormFields = advertForm.querySelectorAll('fieldset, select');
+var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
+var addressField = advertForm.querySelector('#address');
+var roomNumber = advertForm.querySelector('#room_number');
+var capacity = advertForm.querySelector('#capacity');
+
 var maxPrice = 10000;
 var minPrice = 50000;
 var minRooms = 1;
@@ -90,9 +102,6 @@ var renderPins = function () {
 
   return advertPinsList.appendChild(fragment);
 };
-renderPins();
-
-mapAdverts.classList.remove('map--faded');
 
 var AccommodationTypes = {
   BUNGALO: 'Бунгало',
@@ -151,4 +160,58 @@ var renderCards = function () {
   mapAdverts.insertBefore(firstAdvertCard, filters);
   return mapAdverts;
 };
-renderCards();
+
+
+var getAdvertAddress = function (evt) {
+  addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
+};
+
+var setActivePage = function (isActivePage) {
+  advertFormFields.forEach(function (item) {
+    item.disabled = !isActivePage;
+  });
+
+  filtersFormFields.forEach(function (item) {
+    item.disabled = !isActivePage;
+  });
+
+  if (isActivePage) {
+    mapAdverts.classList.remove('map--faded');
+    advertForm.classList.remove('ad-form--disabled');
+    renderCards();
+    renderPins();
+  } else {
+    mapAdverts.classList.add('map--faded');
+    advertForm.classList.add('ad-form--disabled');
+  }
+};
+
+setActivePage(false);
+
+mapPinActivation.addEventListener('mousedown', function (evt) {
+  setActivePage(true);
+  getAdvertAddress(evt);
+});
+
+mapPinActivation.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    setActivePage(true);
+    getAdvertAddress(evt);
+  }
+});
+
+var checkForm = function () {
+  if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
+    roomNumber.setCustomValidity('Не хватит места для гостей');
+  } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
+    capacity.setCustomValidity('Без гостей, ради бога!');
+  } else if (roomNumber.value > capacity.value && capacity.value === '0' && +roomNumber.value !== 100) {
+    roomNumber.setCustomValidity('Без гостей только 100 комнат');
+  }
+};
+
+advertForm.addEventListener('click', checkForm);
+advertForm.addEventListener('change', function () {
+  roomNumber.setCustomValidity('');
+  capacity.setCustomValidity('');
+});
