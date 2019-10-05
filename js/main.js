@@ -213,3 +213,7 @@ var checkForm = function () {
 };
 
 advertForm.addEventListener('click', checkForm);
+advertForm.addEventListener('change', function () {
+  roomNumber.setCustomValidity('');
+  capacity.setCustomValidity('');
+});
