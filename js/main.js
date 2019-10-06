@@ -93,15 +93,16 @@ var getPin = function (advert) {
   return advertPinElement;
 };
 
-var renderPins = function () {
-  var fragment = document.createDocumentFragment();
+var pinsFragment = document.createDocumentFragment();
+adverts.forEach(function (item) {
+  pinsFragment.appendChild(getPin(item));
+});
+advertPinsList.appendChild(pinsFragment);
 
-  adverts.forEach(function (item) {
-    fragment.appendChild(getPin(item));
-  });
-
-  return advertPinsList.appendChild(fragment);
-};
+var pins = advertPinsList.querySelectorAll('button[type = "button"]');
+pins.forEach(function (item) {
+  item.classList.add('hidden');
+});
 
 var AccommodationTypes = {
   BUNGALO: 'Бунгало',
@@ -154,13 +155,16 @@ var getAdvertCard = function (advert) {
   return advertCardElement;
 };
 
-var firstAdvertCard = getAdvertCard(adverts[0]);
+var advertCardsFragment = document.createDocumentFragment();
+adverts.forEach(function (element) {
+  advertCardsFragment.appendChild(getAdvertCard(element));
+});
+mapAdverts.insertBefore(advertCardsFragment, filters);
 
-var renderCards = function () {
-  mapAdverts.insertBefore(firstAdvertCard, filters);
-  return mapAdverts;
-};
-
+var advertCards = mapAdverts.querySelectorAll('.popup');
+advertCards.forEach(function (item) {
+  item.classList.add('hidden');
+});
 
 var getAdvertAddress = function (evt) {
   addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
@@ -177,11 +181,15 @@ var setActivePage = function (isActivePage) {
 
   if (isActivePage) {
     mapAdverts.classList.remove('map--faded');
+
     advertForm.classList.remove('ad-form--disabled');
-    renderCards();
-    renderPins();
+
+    pins.forEach(function (item) {
+      item.classList.remove('hidden');
+    });
   } else {
     mapAdverts.classList.add('map--faded');
+
     advertForm.classList.add('ad-form--disabled');
   }
 };
@@ -215,3 +223,5 @@ advertForm.addEventListener('change', function () {
   roomNumber.setCustomValidity('');
   capacity.setCustomValidity('');
 });
+
+
