@@ -156,16 +156,16 @@ var getAdvertCard = function (advert) {
   return advertCardElement;
 };
 
-var advertCardsFragment = document.createDocumentFragment();
-adverts.forEach(function (element) {
-  advertCardsFragment.appendChild(getAdvertCard(element));
-});
-mapAdverts.insertBefore(advertCardsFragment, filters);
+// var advertCardsFragment = document.createDocumentFragment();
+// adverts.forEach(function (element) {
+//   advertCardsFragment.appendChild(getAdvertCard(element));
+// });
+// mapAdverts.insertBefore(advertCardsFragment, filters);
 
-var advertCards = mapAdverts.querySelectorAll('.popup');
-advertCards.forEach(function (item) {
-  item.classList.add('hidden');
-});
+// var advertCards = mapAdverts.querySelectorAll('.popup');
+// advertCards.forEach(function (item) {
+//   item.classList.add('hidden');
+// });
 
 var getAdvertAddress = function (evt) {
   addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
@@ -225,39 +225,38 @@ advertForm.addEventListener('change', function () {
   capacity.setCustomValidity('');
 });
 
-var popupCloseButtonClassName = 'popup__close';
+// var popupCloseButtonClassName = 'popup__close';
 
+// var addPinClickHandler = function (pin, advertCard) {
+//   var documentKeyDownHandler = function (evt) {
+//     if (evt.keyCode === ESC_KEYCODE) {
+//       closePopup();
+//     }
+//   };
 
-var addPinClickHandler = function (pin, advertCard) {
-  var documentKeyDownHandler = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closePopup();
-    }
-  };
+//   var documentClickHandler = function (evt) {
+//     if (evt.target.className === popupCloseButtonClassName) {
+//       closePopup();
+//     }
+//   };
 
-  var documentClickHandler = function (evt) {
-    if (evt.target.className === popupCloseButtonClassName) {
-      closePopup();
-    }
-  };
+//   var closePopup = function () {
+//     advertCard.classList.add('hidden');
+//     document.removeEventListener('keydown', documentKeyDownHandler);
+//     document.removeEventListener('click', documentClickHandler);
+//   };
 
-  var closePopup = function () {
-    advertCard.classList.add('hidden');
-    document.removeEventListener('keydown', documentKeyDownHandler);
-    document.removeEventListener('click', documentClickHandler);
-  };
+//   var openPopup = function () {
+//     advertCard.classList.remove('hidden');
+//     document.addEventListener('keydown', documentKeyDownHandler);
+//     document.addEventListener('click', documentClickHandler);
+//   };
 
-  var openPopup = function () {
-    advertCard.classList.remove('hidden');
-    document.addEventListener('keydown', documentKeyDownHandler);
-    document.addEventListener('click', documentClickHandler);
-  };
+//   pin.addEventListener('click', function () {
+//     openPopup();
+//   });
+// };
 
-  pin.addEventListener('click', function () {
-    openPopup();
-  });
-};
-
-for (var i = 0; i < pins.length; i++) {
-  addPinClickHandler(pins[i], advertCards[i]);
-}
+// for (var i = 0; i < pins.length; i++) {
+//   addPinClickHandler(pins[i], advertCards[i]);
+// }
