@@ -162,10 +162,18 @@ var getAdvertCard = function (advert) {
 // });
 // mapAdverts.insertBefore(advertCardsFragment, filters);
 
-// var advertCards = mapAdverts.querySelectorAll('.popup');
-// advertCards.forEach(function (item) {
-//   item.classList.add('hidden');
-// });
+var advertCards = mapAdverts.querySelectorAll('.popup');
+advertCards.forEach(function (item) {
+  item.classList.add('hidden');
+});
+
+var insertSelectedAdvertCard = function (pin) {
+  var fragment = document.createDocumentFragment();
+  fragment.appendChild(getAdvertCard(adverts[pin]));
+  mapAdverts.insertBefore(fragment, filters);
+};
+
+insertSelectedAdvertCard(1);
 
 var getAdvertAddress = function (evt) {
   addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
