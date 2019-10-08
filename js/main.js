@@ -11,6 +11,7 @@ var PIN_HEIGHT = 70;
 var MAIN_PIN_HEIGHT = 72;
 var MAIN_PIN_WIDTH = 84;
 var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
 
 var mapAdverts = document.querySelector('.map');
 var filters = mapAdverts.querySelector('.map__filters-container');
@@ -224,4 +225,39 @@ advertForm.addEventListener('change', function () {
   capacity.setCustomValidity('');
 });
 
+var popupCloseButtonClassName = 'popup__close';
 
+
+var addPinClickHandler = function (pin, advertCard) {
+  var documentKeyDownHandler = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closePopup();
+    }
+  };
+
+  var documentClickHandler = function (evt) {
+    if (evt.target.className === popupCloseButtonClassName) {
+      closePopup();
+    }
+  };
+
+  var closePopup = function () {
+    advertCard.classList.add('hidden');
+    document.removeEventListener('keydown', documentKeyDownHandler);
+    document.removeEventListener('click', documentClickHandler);
+  };
+
+  var openPopup = function () {
+    advertCard.classList.remove('hidden');
+    document.addEventListener('keydown', documentKeyDownHandler);
+    document.addEventListener('click', documentClickHandler);
+  };
+
+  pin.addEventListener('click', function () {
+    openPopup();
+  });
+};
+
+for (var i = 0; i < pins.length; i++) {
+  addPinClickHandler(pins[i], advertCards[i]);
+}
