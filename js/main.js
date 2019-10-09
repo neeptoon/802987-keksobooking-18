@@ -258,3 +258,45 @@ var insertSelectedAdvertCard = function (pin, advert) {
 for (var i = 0; i < adverts.length; i++) {
   insertSelectedAdvertCard(pins[i], adverts[i]);
 }
+
+// валидация к 9 домашке
+advertForm.action = 'https://js.dump.academy/keksobooking';
+
+// addressField.readonly = 'readonly';
+addressField.setAttribute('readonly', 'readonly');
+
+
+var HousingPriceOnType = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
+
+var SetTime = {
+  'После 12': 'Выезд до 12',
+  'После 13': 'Выезд до 13',
+  'После 14': 'Выезд до 14'
+};
+
+var advertTitle = advertForm.querySelector('#title');
+advertTitle.required = 'required';
+advertTitle.min = 30;
+advertTitle.max = 100;
+
+var housingType = advertForm.querySelector('#type');
+console.log(housingType);
+var choiceType = housingType.querySelector('option:checked');
+console.log(choiceType.value);
+
+var pricePerNight = advertForm.querySelector('#price');
+pricePerNight.required = 'required';
+pricePerNight.type = 'number';
+pricePerNight.max = 1000000;
+pricePerNight.min = HousingPriceOnType[choiceType.value];
+pricePerNight.placeholder = HousingPriceOnType[choiceType.value];
+console.log(HousingPriceOnType[choiceType.value]);
+
+var timeIn = advertForm.querySelector('#timein');
+var timeOut = advertForm.querySelector('#timeout');
+
