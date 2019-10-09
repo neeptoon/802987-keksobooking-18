@@ -46,7 +46,7 @@ var getRandomArray = function (arr) {
   arr.sort(function () {
     return 0.5 - Math.random();
   });
-  return arr.splice(0, getRandomNumber(1, arr.length));
+  return arr.slice(1, getRandomNumber(1, arr.length));
 };
 
 var getAdverts = function () {
@@ -156,25 +156,6 @@ var getAdvertCard = function (advert) {
   return advertCardElement;
 };
 
-// var advertCardsFragment = document.createDocumentFragment();
-// adverts.forEach(function (element) {
-//   advertCardsFragment.appendChild(getAdvertCard(element));
-// });
-// mapAdverts.insertBefore(advertCardsFragment, filters);
-
-var advertCards = mapAdverts.querySelectorAll('.popup');
-advertCards.forEach(function (item) {
-  item.classList.add('hidden');
-});
-
-var insertSelectedAdvertCard = function (pin) {
-  var fragment = document.createDocumentFragment();
-  fragment.appendChild(getAdvertCard(adverts[pin]));
-  mapAdverts.insertBefore(fragment, filters);
-};
-
-insertSelectedAdvertCard(1);
-
 var getAdvertAddress = function (evt) {
   addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
 };
@@ -233,38 +214,47 @@ advertForm.addEventListener('change', function () {
   capacity.setCustomValidity('');
 });
 
-// var popupCloseButtonClassName = 'popup__close';
+// добавляет функцию вставки карточки объявления
 
-// var addPinClickHandler = function (pin, advertCard) {
-//   var documentKeyDownHandler = function (evt) {
-//     if (evt.keyCode === ESC_KEYCODE) {
-//       closePopup();
-//     }
-//   };
+var selectedCardContainer = document.createElement('div');
 
-//   var documentClickHandler = function (evt) {
-//     if (evt.target.className === popupCloseButtonClassName) {
-//       closePopup();
-//     }
-//   };
+var insertAdvertCardContainer = function () {
+  mapAdverts.insertBefore(selectedCardContainer, filters);
+};
 
-//   var closePopup = function () {
-//     advertCard.classList.add('hidden');
-//     document.removeEventListener('keydown', documentKeyDownHandler);
-//     document.removeEventListener('click', documentClickHandler);
-//   };
+var documentKeyDownHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
 
-//   var openPopup = function () {
-//     advertCard.classList.remove('hidden');
-//     document.addEventListener('keydown', documentKeyDownHandler);
-//     document.addEventListener('click', documentClickHandler);
-//   };
+var documentClickHandler = function (evt) {
+  var closePopupButton = selectedCardContainer.querySelector('.popup__close');
+  if (evt.target === closePopupButton) {
+    closePopup();
+  }
+};
 
-//   pin.addEventListener('click', function () {
-//     openPopup();
-//   });
-// };
+var closePopup = function () {
+  selectedCardContainer.textContent = '';
+  document.removeEventListener('keydown', documentKeyDownHandler);
+  document.removeEventListener('click', documentClickHandler);
+};
 
-// for (var i = 0; i < pins.length; i++) {
-//   addPinClickHandler(pins[i], advertCards[i]);
-// }
+var openPopup = function (advert) {
+  selectedCardContainer.appendChild(getAdvertCard(advert));
+  document.addEventListener('keydown', documentKeyDownHandler);
+  document.addEventListener('click', documentClickHandler);
+};
+
+var insertSelectedAdvertCard = function (pin, advert) {
+  pin.addEventListener('click', function () {
+    insertAdvertCardContainer();
+    closePopup();
+    openPopup(advert);
+  });
+};
+
+for (var i = 0; i < adverts.length; i++) {
+  insertSelectedAdvertCard(pins[i], adverts[i]);
+}
