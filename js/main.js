@@ -24,6 +24,10 @@ var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
 var addressField = advertForm.querySelector('#address');
 var roomNumber = advertForm.querySelector('#room_number');
 var capacity = advertForm.querySelector('#capacity');
+var housingType = advertForm.querySelector('#type');
+var pricePerNight = advertForm.querySelector('#price');
+var timeIn = advertForm.querySelector('#timein');
+var timeOut = advertForm.querySelector('#timeout');
 
 var maxPrice = 10000;
 var minPrice = 50000;
@@ -110,6 +114,19 @@ var AccommodationTypes = {
   HOUSE: 'Дом',
   PALACE: 'Дворец',
   FLAT: 'Квартира'
+};
+
+var HousingPriceOnType = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
+
+var SetTime = {
+  '12:00': '12:00',
+  '13:00': '13:00',
+  '14:00': '14:00'
 };
 
 var getAdvertCard = function (advert) {
@@ -243,6 +260,7 @@ var closePopup = function () {
 
 var openPopup = function (advert) {
   selectedCardContainer.appendChild(getAdvertCard(advert));
+
   document.addEventListener('keydown', documentKeyDownHandler);
   document.addEventListener('click', documentClickHandler);
 };
@@ -260,43 +278,15 @@ for (var i = 0; i < adverts.length; i++) {
 }
 
 // валидация к 9 домашке
-advertForm.action = 'https://js.dump.academy/keksobooking';
+housingType.addEventListener('change', function () {
+  pricePerNight.min = HousingPriceOnType[housingType.value];
+  pricePerNight.placeholder = HousingPriceOnType[housingType.value];
+});
 
-// addressField.readonly = 'readonly';
-addressField.setAttribute('readonly', 'readonly');
+timeIn.addEventListener('change', function () {
+  timeOut.value = SetTime[timeIn.value];
+});
 
-
-var HousingPriceOnType = {
-  bungalo: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000
-};
-
-var SetTime = {
-  'После 12': 'Выезд до 12',
-  'После 13': 'Выезд до 13',
-  'После 14': 'Выезд до 14'
-};
-
-var advertTitle = advertForm.querySelector('#title');
-advertTitle.required = 'required';
-advertTitle.min = 30;
-advertTitle.max = 100;
-
-var housingType = advertForm.querySelector('#type');
-console.log(housingType);
-var choiceType = housingType.querySelector('option:checked');
-console.log(choiceType.value);
-
-var pricePerNight = advertForm.querySelector('#price');
-pricePerNight.required = 'required';
-pricePerNight.type = 'number';
-pricePerNight.max = 1000000;
-pricePerNight.min = HousingPriceOnType[choiceType.value];
-pricePerNight.placeholder = HousingPriceOnType[choiceType.value];
-console.log(HousingPriceOnType[choiceType.value]);
-
-var timeIn = advertForm.querySelector('#timein');
-var timeOut = advertForm.querySelector('#timeout');
-
+timeOut.addEventListener('change', function () {
+  timeIn.value = SetTime[timeOut.value];
+});
