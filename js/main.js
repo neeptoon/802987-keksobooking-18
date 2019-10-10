@@ -231,12 +231,15 @@ advertForm.addEventListener('change', function () {
   capacity.setCustomValidity('');
 });
 
-// добавляет функцию вставки карточки объявления
 
-var selectedCardContainer = document.createElement('div');
+var popup = null;
 
-var insertAdvertCardContainer = function () {
-  mapAdverts.insertBefore(selectedCardContainer, filters);
+var closePopup = function () {
+  if (popup) {
+    popup.remove();
+  }
+  document.removeEventListener('keydown', documentKeyDownHandler);
+  document.removeEventListener('click', documentClickHandler);
 };
 
 var documentKeyDownHandler = function (evt) {
@@ -246,28 +249,21 @@ var documentKeyDownHandler = function (evt) {
 };
 
 var documentClickHandler = function (evt) {
-  var closePopupButton = selectedCardContainer.querySelector('.popup__close');
+  var closePopupButton = popup.querySelector('.popup__close');
   if (evt.target === closePopupButton) {
     closePopup();
   }
 };
 
-var closePopup = function () {
-  selectedCardContainer.textContent = '';
-  document.removeEventListener('keydown', documentKeyDownHandler);
-  document.removeEventListener('click', documentClickHandler);
-};
-
 var openPopup = function (advert) {
-  selectedCardContainer.appendChild(getAdvertCard(advert));
-
+  popup = getAdvertCard(advert);
+  mapAdverts.querySelector('.map__pins').insertAdjacentElement('afterend', popup);
   document.addEventListener('keydown', documentKeyDownHandler);
   document.addEventListener('click', documentClickHandler);
 };
 
 var insertSelectedAdvertCard = function (pin, advert) {
   pin.addEventListener('click', function () {
-    insertAdvertCardContainer();
     closePopup();
     openPopup(advert);
   });
@@ -277,7 +273,7 @@ for (var i = 0; i < adverts.length; i++) {
   insertSelectedAdvertCard(pins[i], adverts[i]);
 }
 
-// валидация к 9 домашке
+
 housingType.addEventListener('change', function () {
   pricePerNight.min = HousingPriceOnType[housingType.value];
   pricePerNight.placeholder = HousingPriceOnType[housingType.value];
