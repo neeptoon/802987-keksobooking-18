@@ -1,22 +1,9 @@
 'use strict';
 
-var AMOUNT_ADVERT = 8;
-var MIN_X = 0;
-var MAX_X = 1200;
-var MIN_Y = 130;
-var MAX_Y = 630;
-var TIME = ['12:00', '13:00', '14:00'];
-var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70;
-var MAIN_PIN_HEIGHT = 72;
-var MAIN_PIN_WIDTH = 84;
 var ENTER_KEYCODE = 13;
 var ESC_KEYCODE = 27;
 
 var mapAdverts = document.querySelector('.map');
-var filters = mapAdverts.querySelector('.map__filters-container');
-var filtersForm = filters.querySelector('.map__filters');
-var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
 var advertPinsList = mapAdverts.querySelector('.map__pins');
 var advertForm = document.querySelector('.ad-form');
 var advertFormFields = advertForm.querySelectorAll('fieldset, select');
@@ -28,13 +15,6 @@ var housingType = advertForm.querySelector('#type');
 var pricePerNight = advertForm.querySelector('#price');
 var timeIn = advertForm.querySelector('#timein');
 var timeOut = advertForm.querySelector('#timeout');
-
-var maxPrice = 10000;
-var minPrice = 50000;
-var minRooms = 1;
-var maxRooms = 3;
-var minGuests = 1;
-var maxGuests = 7;
 
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
@@ -53,7 +33,22 @@ var getRandomArray = function (arr) {
   return arr.slice(1, getRandomNumber(1, arr.length));
 };
 
+// get-adverts.js
 var getAdverts = function () {
+  var AMOUNT_ADVERT = 8;
+  var MIN_X = 0;
+  var MAX_X = 1200;
+  var MAX_Y = 630;
+  var MIN_Y = 130;
+  var TIME = ['12:00', '13:00', '14:00'];
+
+  var maxPrice = 10000;
+  var minPrice = 50000;
+  var minRooms = 1;
+  var maxRooms = 3;
+  var minGuests = 1;
+  var maxGuests = 7;
+
   var advertList = [];
 
   for (var i = 0; i < AMOUNT_ADVERT; i++) {
@@ -89,6 +84,8 @@ var getAdverts = function () {
 var adverts = getAdverts();
 
 var getPin = function (advert) {
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
   var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var advertPinElement = advertPinTemplate.cloneNode(true);
   var advertPinImg = advertPinElement.querySelector('img');
@@ -174,10 +171,15 @@ var getAdvertCard = function (advert) {
 };
 
 var getAdvertAddress = function (evt) {
+  var MAIN_PIN_HEIGHT = 72;
+  var MAIN_PIN_WIDTH = 84;
   addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
 };
 
 var setActivePage = function (isActivePage) {
+  var filters = mapAdverts.querySelector('.map__filters-container');
+  var filtersForm = filters.querySelector('.map__filters');
+  var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
   advertFormFields.forEach(function (item) {
     item.disabled = !isActivePage;
   });
