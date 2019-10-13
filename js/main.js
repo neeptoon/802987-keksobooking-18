@@ -1,37 +1,27 @@
 'use strict';
 
-var ENTER_KEYCODE = 13;
-var ESC_KEYCODE = 27;
+// var window.util.ENTER_KEYCODE = 13;
+// var window.util.ESC_KEYCODE = 27;
 
-var mapAdverts = document.querySelector('.map');
-var advertPinsList = mapAdverts.querySelector('.map__pins');
-var advertForm = document.querySelector('.ad-form');
-var advertFormFields = advertForm.querySelectorAll('fieldset, select');
-var mapPinActivation = mapAdverts.querySelector('.map__pin--main');
-var addressField = advertForm.querySelector('#address');
-var roomNumber = advertForm.querySelector('#room_number');
-var capacity = advertForm.querySelector('#capacity');
-var housingType = advertForm.querySelector('#type');
-var pricePerNight = advertForm.querySelector('#price');
-var timeIn = advertForm.querySelector('#timein');
-var timeOut = advertForm.querySelector('#timeout');
+// var window.util.mapAdverts = document.querySelector('.map');
+// var window.util.advertForm = document.querySelector('.ad-form');
 
-var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var typeList = ['palace', 'flat', 'house', 'bungalo'];
-var titleList = ['Отличная двушка по цене трешки', 'Холостяцкое гнездышко с видом на море', 'Хата с глухими соседями', 'Квартира в аренду посуточно рядом с клубом', 'Просто отличная квартира', 'Кошатницам вход запрещен'];
-var descriptionList = ['можно с детьми', 'можно с животными', 'можно с детьми животных', 'никаких детей', 'никаких животных'];
+// var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+// var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+// var typeList = ['palace', 'flat', 'house', 'bungalo'];
+// var titleList = ['Отличная двушка по цене трешки', 'Холостяцкое гнездышко с видом на море', 'Хата с глухими соседями', 'Квартира в аренду посуточно рядом с клубом', 'Просто отличная квартира', 'Кошатницам вход запрещен'];
+// var descriptionList = ['можно с детьми', 'можно с животными', 'можно с детьми животных', 'никаких детей', 'никаких животных'];
 
-var getRandomNumber = function (min, max) {
-  return Math.round(min - 0.5 + Math.random() * (max - min + 1));
-};
+// var window.util.getRandomNumber = function (min, max) {
+//   return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+// };
 
-var getRandomArray = function (arr) {
-  arr.sort(function () {
-    return 0.5 - Math.random();
-  });
-  return arr.slice(1, getRandomNumber(1, arr.length));
-};
+// var window.util.getRandomArray = function (arr) {
+//   arr.sort(function () {
+//     return 0.5 - Math.random();
+//   });
+//   return arr.slice(1, window.util.getRandomNumber(1, arr.length));
+// };
 
 // get-adverts.js
 var getAdverts = function () {
@@ -53,8 +43,8 @@ var getAdverts = function () {
 
   for (var i = 0; i < AMOUNT_ADVERT; i++) {
     var location = {
-      x: getRandomNumber(MIN_X, MAX_X),
-      y: getRandomNumber(MIN_Y, MAX_Y)
+      x: window.util.getRandomNumber(MIN_X, MAX_X),
+      y: window.util.getRandomNumber(MIN_Y, MAX_Y)
     };
 
     var advertData = {
@@ -62,17 +52,17 @@ var getAdverts = function () {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
       offer: {
-        title: titleList[getRandomNumber(0, titleList.length - 1)],
+        title: window.util.titleList[window.util.getRandomNumber(0, window.util.titleList.length - 1)],
         address: location.x + ' ' + location.y,
-        price: getRandomNumber(minPrice, maxPrice),
-        type: typeList[getRandomNumber(0, typeList.length - 1)],
-        rooms: getRandomNumber(minRooms, maxRooms),
-        guests: getRandomNumber(minGuests, maxGuests),
-        checkin: TIME[getRandomNumber(0, TIME.length - 1)],
-        checkout: TIME[getRandomNumber(0, TIME.length - 1)],
-        features: getRandomArray(features),
-        description: descriptionList[getRandomNumber(0, descriptionList.length - 1)],
-        photos: getRandomArray(photos)
+        price: window.util.getRandomNumber(minPrice, maxPrice),
+        type: window.util.typeList[window.util.getRandomNumber(0, window.util.typeList.length - 1)],
+        rooms: window.util.getRandomNumber(minRooms, maxRooms),
+        guests: window.util.getRandomNumber(minGuests, maxGuests),
+        checkin: TIME[window.util.getRandomNumber(0, TIME.length - 1)],
+        checkout: TIME[window.util.getRandomNumber(0, TIME.length - 1)],
+        features: window.util.getRandomArray(window.util.features),
+        description: window.util.descriptionList[window.util.getRandomNumber(0, window.util.descriptionList.length - 1)],
+        photos: window.util.getRandomArray(window.util.photos)
       },
       location: location
     };
@@ -82,6 +72,9 @@ var getAdverts = function () {
 };
 
 var adverts = getAdverts();
+
+// получение метки объявления
+var advertPinsList = window.util.mapAdverts.querySelector('.map__pins');
 
 var getPin = function (advert) {
   var PIN_WIDTH = 50;
@@ -111,19 +104,6 @@ var AccommodationTypes = {
   HOUSE: 'Дом',
   PALACE: 'Дворец',
   FLAT: 'Квартира'
-};
-
-var HousingPriceOnType = {
-  bungalo: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000
-};
-
-var SetTime = {
-  '12:00': '12:00',
-  '13:00': '13:00',
-  '14:00': '14:00'
 };
 
 var getAdvertCard = function (advert) {
@@ -170,6 +150,8 @@ var getAdvertCard = function (advert) {
   return advertCardElement;
 };
 
+// получение адреса об
+var addressField = window.util.advertForm.querySelector('#address');
 var getAdvertAddress = function (evt) {
   var MAIN_PIN_HEIGHT = 72;
   var MAIN_PIN_WIDTH = 84;
@@ -177,8 +159,9 @@ var getAdvertAddress = function (evt) {
 };
 
 var setActivePage = function (isActivePage) {
-  var filters = mapAdverts.querySelector('.map__filters-container');
+  var filters = window.util.mapAdverts.querySelector('.map__filters-container');
   var filtersForm = filters.querySelector('.map__filters');
+  var advertFormFields = window.util.advertForm.querySelectorAll('fieldset, select');
   var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
   advertFormFields.forEach(function (item) {
     item.disabled = !isActivePage;
@@ -189,50 +172,35 @@ var setActivePage = function (isActivePage) {
   });
 
   if (isActivePage) {
-    mapAdverts.classList.remove('map--faded');
+    window.util.mapAdverts.classList.remove('map--faded');
 
-    advertForm.classList.remove('ad-form--disabled');
+    window.util.advertForm.classList.remove('ad-form--disabled');
 
     pins.forEach(function (item) {
       item.classList.remove('hidden');
     });
   } else {
-    mapAdverts.classList.add('map--faded');
+    window.util.mapAdverts.classList.add('map--faded');
 
-    advertForm.classList.add('ad-form--disabled');
+    window.util.advertForm.classList.add('ad-form--disabled');
   }
 };
 
 setActivePage(false);
 
+// активация страницы по клику и кейдауну
+var mapPinActivation = window.util.mapAdverts.querySelector('.map__pin--main');
 mapPinActivation.addEventListener('mousedown', function (evt) {
   setActivePage(true);
   getAdvertAddress(evt);
 });
 
 mapPinActivation.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  if (evt.keyCode === window.util.ENTER_KEYCODE) {
     setActivePage(true);
     getAdvertAddress(evt);
   }
 });
-
-var checkForm = function () {
-  if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
-    roomNumber.setCustomValidity('Не хватит места для гостей');
-  } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
-    capacity.setCustomValidity('Без гостей, ради бога!');
-  } else if (roomNumber.value > capacity.value && capacity.value === '0' && +roomNumber.value !== 100) {
-    roomNumber.setCustomValidity('Без гостей только 100 комнат');
-  }
-};
-
-advertForm.addEventListener('click', checkForm);
-advertForm.addEventListener('change', function () {
-  roomNumber.setCustomValidity('');
-  capacity.setCustomValidity('');
-});
-
 
 var popup = null;
 
@@ -245,7 +213,7 @@ var closePopup = function () {
 };
 
 var documentKeyDownHandler = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === window.util.ESC_KEYCODE) {
     closePopup();
   }
 };
@@ -259,7 +227,7 @@ var documentClickHandler = function (evt) {
 
 var openPopup = function (advert) {
   popup = getAdvertCard(advert);
-  mapAdverts.querySelector('.map__pins').insertAdjacentElement('afterend', popup);
+  window.util.mapAdverts.querySelector('.map__pins').insertAdjacentElement('afterend', popup);
   document.addEventListener('keydown', documentKeyDownHandler);
   document.addEventListener('click', documentClickHandler);
 };
@@ -275,11 +243,51 @@ for (var i = 0; i < adverts.length; i++) {
   insertSelectedAdvertCard(pins[i], adverts[i]);
 }
 
+// валидация формы объявления
+var roomNumber = window.util.advertForm.querySelector('#room_number');
+var capacity = window.util.advertForm.querySelector('#capacity');
+
+var HousingPriceOnType = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
+
+var SetTime = {
+  '12:00': '12:00',
+  '13:00': '13:00',
+  '14:00': '14:00'
+};
+
+var checkForm = function () {
+  if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
+    roomNumber.setCustomValidity('Не хватит места для гостей');
+  } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
+    capacity.setCustomValidity('Без гостей, ради бога!');
+  } else if (roomNumber.value > capacity.value && capacity.value === '0' && +roomNumber.value !== 100) {
+    roomNumber.setCustomValidity('Без гостей только 100 комнат');
+  }
+};
+
+window.util.advertForm.addEventListener('click', checkForm);
+window.util.advertForm.addEventListener('change', function () {
+  roomNumber.setCustomValidity('');
+  capacity.setCustomValidity('');
+});
+
+// настройка формы объявления
+var housingType = window.util.advertForm.querySelector('#type');
+var pricePerNight = window.util.advertForm.querySelector('#price');
 
 housingType.addEventListener('change', function () {
   pricePerNight.min = HousingPriceOnType[housingType.value];
   pricePerNight.placeholder = HousingPriceOnType[housingType.value];
 });
+
+// настройка времени прибытия - убытия
+var timeIn = window.util.advertForm.querySelector('#timein');
+var timeOut = window.util.advertForm.querySelector('#timeout');
 
 timeIn.addEventListener('change', function () {
   timeOut.value = SetTime[timeIn.value];
