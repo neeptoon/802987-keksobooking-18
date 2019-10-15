@@ -49,6 +49,11 @@
       window.util.mainPin.style.top = (window.util.mainPin.offsetTop - shift.y) + 'px';
       window.util.mainPin.style.left = (window.util.mainPin.offsetLeft - shift.x) + 'px';
       getAdvertAddress(moveEvt);
+
+      if (startCoords.y < 130) {
+        console.log(startCoords.y);
+        document.removeEventListener('mousemove', onMouseMove);
+      }
     };
 
     var onMouseUp = function (upEvt) {
