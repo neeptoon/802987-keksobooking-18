@@ -30,25 +30,16 @@
 
   setActivePage(false);
 
-  // получение адреса объявления
-  var addressField = window.util.advertForm.querySelector('#address');
-  var getAdvertAddress = function (evt) {
-    var MAIN_PIN_HEIGHT = 72;
-    var MAIN_PIN_WIDTH = 84;
-    addressField.value = evt.currentTarget.offsetLeft + MAIN_PIN_WIDTH / 2 + ' ' + (evt.currentTarget.offsetLeft + MAIN_PIN_HEIGHT);
-  };
-
-  // активация страницы по клику и кейдауну
-  var mapPinActivation = window.util.mapAdverts.querySelector('.map__pin--main');
-  mapPinActivation.addEventListener('mousedown', function (evt) {
+  // активация страницы по маус- и кейдаун
+  window.util.mainPin.addEventListener('mousedown', function () {
     setActivePage(true);
-    getAdvertAddress(evt);
+    // window.util.getAdvertAddress(evt);
   });
 
-  mapPinActivation.addEventListener('keydown', function (evt) {
+  window.util.mainPin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.util.ENTER_KEYCODE) {
       setActivePage(true);
-      getAdvertAddress(evt);
+      // window.util.getAdvertAddress(evt);
     }
   });
 })();

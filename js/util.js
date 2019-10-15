@@ -7,6 +7,8 @@
 
     mapAdverts: document.querySelector('.map'),
     advertForm: document.querySelector('.ad-form'),
+    addressField: document.querySelector('#address'),
+    mainPin: document.querySelector('.map__pin--main'),
 
     features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
     photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
@@ -23,6 +25,6 @@
         return 0.5 - Math.random();
       });
       return arr.slice(1, window.util.getRandomNumber(1, arr.length));
-    },
+    }
   };
 })();
