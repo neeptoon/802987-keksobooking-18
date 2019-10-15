@@ -46,14 +46,16 @@
         y: moveEvt.clientY
       };
 
+      if (startCoords.y < 130) {
+        startCoords.y = 130;
+      } else if (startCoords.y > 630) {
+        startCoords.y = 630;
+      }
+
       window.util.mainPin.style.top = (window.util.mainPin.offsetTop - shift.y) + 'px';
       window.util.mainPin.style.left = (window.util.mainPin.offsetLeft - shift.x) + 'px';
       getAdvertAddress(moveEvt);
 
-      if (startCoords.y < 130) {
-        console.log(startCoords.y);
-        document.removeEventListener('mousemove', onMouseMove);
-      }
     };
 
     var onMouseUp = function (upEvt) {
