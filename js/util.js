@@ -2,6 +2,10 @@
 
 (function () {
   window.util = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MAX_Y: 630,
+    MIN_Y: 130,
     ENTER_KEYCODE: 13,
     ESC_KEYCODE: 27,
 

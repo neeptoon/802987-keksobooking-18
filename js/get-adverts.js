@@ -2,10 +2,6 @@
 
 (function () {
   var AMOUNT_ADVERT = 8;
-  var MIN_X = 0;
-  var MAX_X = 1200;
-  var MAX_Y = 630;
-  var MIN_Y = 130;
   var TIME = ['12:00', '13:00', '14:00'];
 
   var maxPrice = 10000;
@@ -21,8 +17,8 @@
 
     for (var i = 0; i < AMOUNT_ADVERT; i++) {
       var location = {
-        x: window.util.getRandomNumber(MIN_X, MAX_X),
-        y: window.util.getRandomNumber(MIN_Y, MAX_Y)
+        x: window.util.getRandomNumber(window.util.MIN_X, window.util.MAX_X),
+        y: window.util.getRandomNumber(window.util.MIN_Y, window.util.MAX_Y)
       };
 
       var advertData = {
