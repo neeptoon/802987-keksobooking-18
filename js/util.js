@@ -2,11 +2,17 @@
 
 (function () {
   window.util = {
+    MIN_X: 0,
+    MAX_X: 1200,
+    MAX_Y: 630,
+    MIN_Y: 130,
     ENTER_KEYCODE: 13,
     ESC_KEYCODE: 27,
 
     mapAdverts: document.querySelector('.map'),
     advertForm: document.querySelector('.ad-form'),
+    addressField: document.querySelector('#address'),
+    mainPin: document.querySelector('.map__pin--main'),
 
     features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
     photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'],
@@ -23,6 +29,6 @@
         return 0.5 - Math.random();
       });
       return arr.slice(1, window.util.getRandomNumber(1, arr.length));
-    },
+    }
   };
 })();
