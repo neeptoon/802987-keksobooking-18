@@ -14,6 +14,7 @@
 
     getAdvertAddress();
 
+
     var startCoords = {
       x: evt.clientX - window.util.mainPin.getBoundingClientRect().left,
       y: evt.clientY - window.util.mainPin.getBoundingClientRect().top
@@ -33,7 +34,9 @@
         newCoords.y = window.util.MIN_Y - MAIN_PIN_HEIGHT;
       } else if (newCoords.y > window.util.MAX_Y - MAIN_PIN_HEIGHT) {
         newCoords.y = window.util.MAX_Y - MAIN_PIN_HEIGHT;
-      } else if (newCoords.x < window.util.MIN_X) {
+      }
+
+      if (newCoords.x < window.util.MIN_X) {
         newCoords.x = window.util.MIN_X;
       } else if (newCoords.x > window.util.mapAdverts.clientWidth - MAIN_PIN_WIDTH) {
         newCoords.x = window.util.mapAdverts.clientWidth - MAIN_PIN_WIDTH;
