@@ -38,7 +38,10 @@
     });
   };
 
-  for (var i = 0; i < window.adverts.length; i++) {
+  console.log(window.pins);
+  console.log(window.adverts);
+
+  for (var i = 0; i < window.adverts[i]; i++) {
     insertSelectedAdvertCard(window.pins[i], window.adverts[i]);
   }
 })();

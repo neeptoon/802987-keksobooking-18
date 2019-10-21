@@ -15,15 +15,22 @@
     return advertPinElement;
   };
 
-  var pinsFragment = document.createDocumentFragment();
-  window.adverts.forEach(function (item) {
-    pinsFragment.appendChild(getPin(item));
-  });
-  advertPinsList.appendChild(pinsFragment);
+  var onSuccess = function (response) {
+    window.adverts = response;
+    var pinsFragment = document.createDocumentFragment();
+    window.adverts.forEach(function (item) {
+      pinsFragment.appendChild(getPin(item));
+    });
+    advertPinsList.appendChild(pinsFragment);
 
-  window.pins = advertPinsList.querySelectorAll('button[type = "button"]');
+    window.pins = advertPinsList.querySelectorAll('button[type = "button"]');
+    console.log(window.pins);
+    console.log(window.adverts);
 
-  window.pins.forEach(function (item) {
-    item.classList.add('hidden');
-  });
+    window.pins.forEach(function (item) {
+      item.classList.add('hidden');
+    });
+  };
+
+  window.download(onSuccess);
 })();
