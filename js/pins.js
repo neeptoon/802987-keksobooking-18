@@ -15,17 +15,16 @@
     return advertPinElement;
   };
 
-  var onSuccess = function (response) {
-    window.adverts = response;
+  var onSuccess = function (adverts) {
     var pinsFragment = document.createDocumentFragment();
-    window.adverts.forEach(function (item) {
+    adverts.forEach(function (item) {
       pinsFragment.appendChild(getPin(item));
     });
     advertPinsList.appendChild(pinsFragment);
 
     window.pins = advertPinsList.querySelectorAll('button[type = "button"]');
     console.log(window.pins);
-    console.log(window.adverts);
+    console.log(adverts);
 
     window.pins.forEach(function (item) {
       item.classList.add('hidden');
