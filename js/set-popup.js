@@ -38,10 +38,10 @@
     });
   };
 
-  console.log(window.pins);
-  console.log(window.adverts);
+  console.log(window.util.pins);
+  console.log(window.util.adverts);
 
-  for (var i = 0; i < window.adverts[i]; i++) {
-    insertSelectedAdvertCard(window.pins[i], window.adverts[i]);
+  for (var i = 0; i < window.util.adverts[i]; i++) {
+    insertSelectedAdvertCard(window.util.pins[i], window.util.adverts[i]);
   }
 })();

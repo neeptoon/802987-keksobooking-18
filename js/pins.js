@@ -15,18 +15,19 @@
     return advertPinElement;
   };
 
-  var onSuccess = function (adverts) {
+  var onSuccess = function (response) {
+    window.util.adverts = response;
     var pinsFragment = document.createDocumentFragment();
-    adverts.forEach(function (item) {
+    window.util.adverts.forEach(function (item) {
       pinsFragment.appendChild(getPin(item));
     });
     advertPinsList.appendChild(pinsFragment);
 
-    window.pins = advertPinsList.querySelectorAll('button[type = "button"]');
-    console.log(window.pins);
-    console.log(adverts);
+    window.util.pins = advertPinsList.querySelectorAll('button[type = "button"]');
+    console.log(window.util.pins);
+    console.log(window.util.adverts);
 
-    window.pins.forEach(function (item) {
+    window.util.pins.forEach(function (item) {
       item.classList.add('hidden');
     });
   };
