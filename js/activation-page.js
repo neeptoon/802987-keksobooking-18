@@ -41,4 +41,5 @@
       window.util.advertForm.classList.add('ad-form--disabled');
     }
   };
+  window.activationPage(false);
 })();

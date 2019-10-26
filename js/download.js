@@ -13,7 +13,7 @@
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
-        onError('Не удалось получить данные. Код ошибки: ' + xhr.status + '.');
+        onError('Не удалось получить данные. Код ошибки: ' + xhr.status + '. ' + window.util.errorCode[xhr.status]);
       }
     });
 
