@@ -31,17 +31,14 @@
     document.addEventListener('click', documentClickHandler);
   };
 
-  var insertSelectedAdvertCard = function (pin, advert) {
+  var showPopup = function (pin, advert) {
     pin.addEventListener('click', function () {
       closePopup();
       openPopup(advert);
     });
   };
 
-  console.log(window.util.pins);
-  console.log(window.util.adverts);
-
   for (var i = 0; i < window.util.adverts[i]; i++) {
-    insertSelectedAdvertCard(window.util.pins[i], window.util.adverts[i]);
+    showPopup(window.util.pins[i], window.util.adverts[i]);
   }
 })();

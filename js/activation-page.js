@@ -1,7 +1,25 @@
 'use strict';
 
 (function () {
-  var setActivePage = function (isActivePage) {
+  var renderPins = function (adverts) {
+    var advertPinsList = window.util.mapAdverts.querySelector('.map__pins');
+    var pinsFragment = document.createDocumentFragment();
+    adverts.forEach(function (item) {
+      pinsFragment.appendChild(window.getPin(item));
+    });
+    advertPinsList.appendChild(pinsFragment);
+  };
+
+  var showMistakes = function (message) {
+    var main = document.querySelector('main');
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorElement = errorTemplate.cloneNode(true);
+    var errorDescription = errorElement.querySelector('.error__message');
+    errorDescription.textContent = message;
+    main.appendChild(errorElement);
+  };
+
+  window.activationPage = function (isActivePage) {
     var filters = window.util.mapAdverts.querySelector('.map__filters-container');
     var filtersForm = filters.querySelector('.map__filters');
     var advertFormFields = window.util.advertForm.querySelectorAll('fieldset, select');
@@ -16,28 +34,11 @@
 
     if (isActivePage) {
       window.util.mapAdverts.classList.remove('map--faded');
-
       window.util.advertForm.classList.remove('ad-form--disabled');
-
-      window.pins.forEach(function (item) {
-        item.classList.remove('hidden');
-      });
+      window.download(renderPins, showMistakes);
     } else {
       window.util.mapAdverts.classList.add('map--faded');
       window.util.advertForm.classList.add('ad-form--disabled');
     }
   };
-
-  setActivePage(false);
-
-  // активация страницы по маус- и кейдаун
-  window.util.mainPin.addEventListener('mousedown', function () {
-    setActivePage(true);
-  });
-
-  window.util.mainPin.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.util.ENTER_KEYCODE) {
-      setActivePage(true);
-    }
-  });
 })();
