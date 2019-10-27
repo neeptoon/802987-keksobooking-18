@@ -2,7 +2,7 @@
 
 (function () {
 
-  var URL = 'https://js.dump.academy/keksobooking/dat4a';
+  var URL = 'https://js.dump.academy/keksobooking/data';
 
   window.download = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
