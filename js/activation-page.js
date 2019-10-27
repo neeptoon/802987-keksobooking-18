@@ -33,7 +33,7 @@
     if (isActivePage) {
       window.util.mapAdverts.classList.remove('map--faded');
       window.util.advertForm.classList.remove('ad-form--disabled');
-      window.download(renderPins, showMistakes);
+      window.load('https://js.dump.academy/keksobooking/data', renderPins, showMistakes, 'GET');
     } else {
       window.util.mapAdverts.classList.add('map--faded');
       window.util.advertForm.classList.add('ad-form--disabled');
