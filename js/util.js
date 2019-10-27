@@ -23,11 +23,6 @@
         return 0.5 - Math.random();
       });
       return arr.slice(1, window.util.getRandomNumber(1, arr.length));
-    },
-
-    errorCode: {
-      400: 'Данные отправлены некорректно',
-      404: 'Запрашиваемая страница не найдена'
     }
   };
 })();
