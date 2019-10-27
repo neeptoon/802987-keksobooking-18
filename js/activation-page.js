@@ -10,12 +10,10 @@
     advertPinsList.appendChild(pinsFragment);
   };
 
-  var showMistakes = function (message) {
+  var showMistakes = function () {
     var main = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
-    var errorDescription = errorElement.querySelector('.error__message');
-    errorDescription.textContent = message;
     main.appendChild(errorElement);
   };
 
