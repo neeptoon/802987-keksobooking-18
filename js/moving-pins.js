@@ -2,11 +2,8 @@
 
 (function () {
 
-  var MAIN_PIN_HEIGHT = 86;
-  var MAIN_PIN_WIDTH = 64;
-
   var getAdvertAddress = function () {
-    window.util.addressField.value = (window.util.mainPin.offsetLeft) + MAIN_PIN_WIDTH / 2 + ' ' + ((window.util.mainPin.offsetTop) + MAIN_PIN_HEIGHT);
+    window.util.addressField.value = (window.util.mainPin.offsetLeft) + window.MainPinParams.MAIN_PIN_WIDTH / 2 + ' ' + ((window.util.mainPin.offsetTop) + window.MainPinParams.MAIN_PIN_HEIGHT);
   };
 
   window.util.mainPin.addEventListener('mousedown', function (evt) {
@@ -30,16 +27,16 @@
         y: moveEvt.clientY - startCoords.y - window.util.mapAdverts.getBoundingClientRect().top
       };
 
-      if (newCoords.y < window.util.MIN_Y - MAIN_PIN_HEIGHT) {
-        newCoords.y = window.util.MIN_Y - MAIN_PIN_HEIGHT;
-      } else if (newCoords.y > window.util.MAX_Y - MAIN_PIN_HEIGHT) {
-        newCoords.y = window.util.MAX_Y - MAIN_PIN_HEIGHT;
+      if (newCoords.y < window.util.MIN_Y - window.MainPinParams.MAIN_PIN_HEIGHT) {
+        newCoords.y = window.util.MIN_Y - window.MainPinParams.MAIN_PIN_HEIGHT;
+      } else if (newCoords.y > window.util.MAX_Y - window.MainPinParams.MAIN_PIN_HEIGHT) {
+        newCoords.y = window.util.MAX_Y - window.MainPinParams.MAIN_PIN_HEIGHT;
       }
 
       if (newCoords.x < window.util.MIN_X) {
         newCoords.x = window.util.MIN_X;
-      } else if (newCoords.x > window.util.mapAdverts.clientWidth - MAIN_PIN_WIDTH) {
-        newCoords.x = window.util.mapAdverts.clientWidth - MAIN_PIN_WIDTH;
+      } else if (newCoords.x > window.util.mapAdverts.clientWidth - window.MainPinParams.MAIN_PIN_WIDTH) {
+        newCoords.x = window.util.mapAdverts.clientWidth - window.MainPinParams.MAIN_PIN_WIDTH;
       }
 
 
