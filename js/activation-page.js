@@ -16,11 +16,12 @@
     var errorElement = errorTemplate.cloneNode(true);
     var errorResetButton = errorElement.querySelector('.error__button');
     main.appendChild(errorElement);
-    errorResetButton.addEventListener('click', console.log('hello'));
+    errorResetButton.addEventListener('click', function () {
+      console.log('hello');
+    });
   };
 
-  var returnStartPage = function (evt) {
-    evt.preventDefault();
+  var returnStartPage = function () {
     window.activationPage(false);
     window.util.mainPin.style.left = window.MainPinParams.START_COORDS_LEFT + 'px';
     window.util.mainPin.style.top = window.MainPinParams.START_COORDS_TOP + 'px';
@@ -29,8 +30,8 @@
   };
 
   var advertFormSubmitHandler = function (evt) {
-    window.load('https://js.dump.academy/keksobooking', returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
     evt.preventDefault();
+    window.load(returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
   };
 
   window.activationPage = function (isActivePage) {
@@ -49,7 +50,7 @@
     if (isActivePage) {
       window.util.mapAdverts.classList.remove('map--faded');
       window.util.advertForm.classList.remove('ad-form--disabled');
-      window.load('https://js.dump.academy/keksobooking/data', renderPins, showMistakes, 'GET');
+      window.load(renderPins, showMistakes, 'GET');
       window.util.advertForm.addEventListener('submit', advertFormSubmitHandler);
     } else {
       window.util.mapAdverts.classList.add('map--faded');

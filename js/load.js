@@ -1,15 +1,20 @@
 'use strict';
 
 (function () {
+  var URL = 'https://js.dump.academy/keksobooking';
 
-  window.load = function (url, onSuccess, onError, type, data) {
+  var STATUS_OK = 200;
+  var TIMEOUT = 10000;
+
+  window.load = function (onSuccess, onError, type, data) {
+    var url = type === 'POST' ? URL : URL + '/data';
     var xhr = new XMLHttpRequest();
-    var GOOD_ANSWER_SERVER = 200;
+
     xhr.responseType = 'json';
-    xhr.timeout = 10000;
+    xhr.timeout = TIMEOUT;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === GOOD_ANSWER_SERVER) {
+      if (xhr.status === STATUS_OK) {
         onSuccess(xhr.response);
       } else {
         onError();
