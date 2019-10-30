@@ -28,7 +28,6 @@
     window.util.advertForm.reset();
   };
 
-
   var advertFormSubmitHandler = function (evt) {
     window.load('https://js.dump.academy/keksobooking', returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
     evt.preventDefault();
