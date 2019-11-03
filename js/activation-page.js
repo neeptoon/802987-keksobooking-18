@@ -10,13 +10,20 @@
     window.advertPinsList.appendChild(pinsFragment);
   };
 
+  var main = document.querySelector('main');
+
   var showMistakes = function () {
-    var main = document.querySelector('main');
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
-    var errorResetButton = errorElement.querySelector('.error__button');
     main.appendChild(errorElement);
-    errorResetButton.addEventListener('click', returnStartPage);
+    // document.addEventListener('click', returnStartPage);
+  };
+
+  var showSuccess = function () {
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successElement = successTemplate.cloneNode(true);
+    main.appendChild(successElement);
+    document.addEventListener('click', returnStartPage);
   };
 
   var removePins = function () {
@@ -33,6 +40,9 @@
     window.util.addressField.value = (window.util.mainPin.offsetLeft) + window.MainPinParams.MAIN_PIN_WIDTH / 2 + ' ' + ((window.util.mainPin.offsetTop) + window.MainPinParams.MAIN_PIN_HEIGHT);
     window.util.advertForm.reset();
     removePins();
+    main.removeChild(main.lastChild);
+    showSuccess();
+    document.removeEventListener('click', returnStartPage);
   };
 
   var advertFormSubmitHandler = function (evt) {
