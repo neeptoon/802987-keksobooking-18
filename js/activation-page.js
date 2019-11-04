@@ -1,6 +1,9 @@
 'use strict';
 
+var main = document.querySelector('main');
+
 (function () {
+
   var renderPins = function (adverts) {
     window.advertPinsList = window.util.mapAdverts.querySelector('.map__pins');
     var pinsFragment = document.createDocumentFragment();
@@ -10,13 +13,11 @@
     window.advertPinsList.appendChild(pinsFragment);
   };
 
-  var main = document.querySelector('main');
 
   var showMistakes = function () {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
     main.appendChild(errorElement);
-    // document.addEventListener('click', returnStartPage);
   };
 
   var showSuccess = function () {
@@ -40,9 +41,6 @@
     window.util.addressField.value = (window.util.mainPin.offsetLeft) + window.MainPinParams.MAIN_PIN_WIDTH / 2 + ' ' + ((window.util.mainPin.offsetTop) + window.MainPinParams.MAIN_PIN_HEIGHT);
     window.util.advertForm.reset();
     removePins();
-    main.removeChild(main.lastChild);
-    showSuccess();
-    document.removeEventListener('click', returnStartPage);
   };
 
   var advertFormSubmitHandler = function (evt) {
@@ -55,6 +53,7 @@
     var filtersForm = filters.querySelector('.map__filters');
     var advertFormFields = window.util.advertForm.querySelectorAll('fieldset, select');
     var filtersFormFields = filtersForm.querySelectorAll('fieldset, select');
+
     advertFormFields.forEach(function (item) {
       item.disabled = !isActivePage;
     });
