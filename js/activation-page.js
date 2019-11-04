@@ -1,7 +1,5 @@
 'use strict';
 
-var main = document.querySelector('main');
-
 (function () {
 
   var renderPins = function (adverts) {
@@ -17,35 +15,12 @@ var main = document.querySelector('main');
   var showMistakes = function () {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
-    main.appendChild(errorElement);
-  };
-
-  var showSuccess = function () {
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successElement = successTemplate.cloneNode(true);
-    main.appendChild(successElement);
-    document.addEventListener('click', returnStartPage);
-  };
-
-  var removePins = function () {
-    var pins = window.util.mapAdverts.querySelectorAll('button[type = "button"]');
-    pins.forEach(function (item) {
-      item.remove();
-    });
-  };
-
-  var returnStartPage = function () {
-    window.activationPage(false);
-    window.util.mainPin.style.left = window.MainPinParams.START_COORDS_LEFT + 'px';
-    window.util.mainPin.style.top = window.MainPinParams.START_COORDS_TOP + 'px';
-    window.util.addressField.value = (window.util.mainPin.offsetLeft) + window.MainPinParams.MAIN_PIN_WIDTH / 2 + ' ' + ((window.util.mainPin.offsetTop) + window.MainPinParams.MAIN_PIN_HEIGHT);
-    window.util.advertForm.reset();
-    removePins();
+    document.querySelector('main').appendChild(errorElement);
   };
 
   var advertFormSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.load(returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
+    window.load(window.returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
   };
 
   window.activationPage = function (isActivePage) {
