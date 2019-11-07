@@ -23,6 +23,8 @@
     window.load(window.returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
   };
 
+  var isDownload = false;
+
   window.activationPage = function (isActivePage) {
     var filters = window.util.mapAdverts.querySelector('.map__filters-container');
     var filtersForm = filters.querySelector('.map__filters');
@@ -40,7 +42,10 @@
     if (isActivePage) {
       window.util.mapAdverts.classList.remove('map--faded');
       window.util.advertForm.classList.remove('ad-form--disabled');
-      window.load(renderPins, showMistakes, 'GET');
+      if (!isDownload) {
+        window.load(renderPins, showMistakes, 'GET');
+        isDownload = true;
+      }
       window.util.advertForm.addEventListener('submit', advertFormSubmitHandler);
     } else {
       window.util.mapAdverts.classList.add('map--faded');
