@@ -7,12 +7,6 @@
     });
   };
 
-  var showSuccess = function () {
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successElement = successTemplate.cloneNode(true);
-    document.querySelector('main').appendChild(successElement);
-  };
-
   window.returnStartPage = function () {
     window.activationPage(false);
     window.util.mainPin.style.left = window.MainPinParams.START_COORDS_LEFT + 'px';
@@ -21,6 +15,6 @@
     window.util.advertForm.reset();
     window.util.mapAdverts.querySelector('.popup').remove();
     removePins();
-    showSuccess();
+    window.showSuccess();
   };
 })();

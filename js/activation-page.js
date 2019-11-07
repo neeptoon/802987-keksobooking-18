@@ -11,16 +11,9 @@
     window.advertPinsList.appendChild(pinsFragment);
   };
 
-
-  var showMistakes = function () {
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorElement = errorTemplate.cloneNode(true);
-    document.querySelector('main').appendChild(errorElement);
-  };
-
   var advertFormSubmitHandler = function (evt) {
     evt.preventDefault();
-    window.load(window.returnStartPage, showMistakes, 'POST', new FormData(window.util.advertForm));
+    window.load(window.returnStartPage, window.showError, 'POST', new FormData(window.util.advertForm));
   };
 
   var isDownload = false;
@@ -43,7 +36,7 @@
       window.util.mapAdverts.classList.remove('map--faded');
       window.util.advertForm.classList.remove('ad-form--disabled');
       if (!isDownload) {
-        window.load(renderPins, showMistakes, 'GET');
+        window.load(renderPins, window.showError, 'GET');
         isDownload = true;
       }
       window.util.advertForm.addEventListener('submit', advertFormSubmitHandler);
