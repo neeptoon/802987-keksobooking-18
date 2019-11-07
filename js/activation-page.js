@@ -44,6 +44,7 @@
       window.util.mapAdverts.classList.add('map--faded');
       window.util.advertForm.classList.add('ad-form--disabled');
       window.util.advertForm.removeEventListener('submit', advertFormSubmitHandler);
+      isDownload = false;
     }
   };
   window.activationPage(false);

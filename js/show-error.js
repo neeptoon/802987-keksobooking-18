@@ -21,6 +21,7 @@
     dialogError.removeEventListener('click', closeError);
     dialogErrorButton.removeEventListener('click', closeError);
     document.removeEventListener('keydown', onErrorEscPress);
+    window.activationPage(false);
   };
 
   window.showError = function () {
@@ -29,7 +30,6 @@
       .querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
     var promo = document.querySelector('.promo');
-
     promo.before(errorElement);
     openError();
   };

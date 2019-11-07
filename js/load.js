@@ -7,7 +7,7 @@
   var TIMEOUT = 10000;
 
   window.load = function (onSuccess, onError, type, data) {
-    var url = type === 'POST' ? URL : URL + '/dat';
+    var url = type === 'POST' ? URL : URL + '/data';
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';

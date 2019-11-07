@@ -20,9 +20,7 @@
   };
 
   window.showSuccess = function () {
-    var successTemplate = document.querySelector('#success')
-      .content
-      .querySelector('.success');
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successElement = successTemplate.cloneNode(true);
     var promo = document.querySelector('.promo');
     promo.before(successElement);
