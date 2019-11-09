@@ -5,9 +5,11 @@
   var renderPins = function (adverts) {
     window.advertPinsList = window.util.mapAdverts.querySelector('.map__pins');
     var pinsFragment = document.createDocumentFragment();
-    adverts.forEach(function (item) {
-      pinsFragment.appendChild(window.getPin(item));
-    });
+    Array.from(adverts)
+      .slice(0, 5)
+      .forEach(function (item) {
+        pinsFragment.appendChild(window.getPin(item));
+      });
     window.advertPinsList.appendChild(pinsFragment);
   };
 
