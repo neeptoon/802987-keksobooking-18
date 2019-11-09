@@ -100,7 +100,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио" required min="30" max="100">
+          <input id="title" name="title" type="text" required placeholder="Милая, уютная квартирка в центре Токио" min="3" max="100">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес</label>
@@ -117,7 +117,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required max="1000000">
+          <input id="price" name="price" type="number" required placeholder="5000" max="1000000">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -250,13 +250,16 @@
   </template>
 
   <script src = 'js/util.js'></script>
-  <script src = 'js/get-adverts.js'></script>
-  <script src = 'js/download.js'></script>
-  <script src = 'js/pins.js'></script>
+  <script src = 'js/load.js'></script>
+  <script src = 'js/main-pin-params.js'></script>
   <script src = 'js/get-adverts-card.js'></script>
-  <script src = 'js/set-page.js'></script>
-  <script src = 'js/set-popup.js'></script>
+  <script src = 'js/activation-page.js'></script>
+  <script src = 'js/return-start-page.js'></script>
+  <script src = 'js/get-pin.js'></script>
   <script src = 'js/set-form.js'></script>
   <script src = 'js/moving-pins.js'></script>
+  <script src='js/show-error.js'></script>
+  <script src = 'js/show-success.js'></script>
+  <script src = 'js/main.js'></script>
 </body>
 </html>

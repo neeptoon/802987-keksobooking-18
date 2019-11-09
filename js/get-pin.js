@@ -31,17 +31,23 @@
     document.addEventListener('click', documentClickHandler);
   };
 
-  var insertSelectedAdvertCard = function (pin, advert) {
-    pin.addEventListener('click', function () {
+
+  window.getPin = function (advert) {
+    var PIN_WIDTH = 50;
+    var PIN_HEIGHT = 70;
+
+    var pinClickHandler = function () {
       closePopup();
       openPopup(advert);
-    });
+    };
+
+    var advertPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+    var advertPinElement = advertPinTemplate.cloneNode(true);
+    advertPinElement.addEventListener('click', pinClickHandler);
+    var advertPinImg = advertPinElement.querySelector('img');
+    advertPinImg.src = advert.author.avatar;
+    advertPinElement.style.left = (advert.location.x - PIN_WIDTH / 2) + 'px';
+    advertPinElement.style.top = (advert.location.y - PIN_HEIGHT) + 'px';
+    return advertPinElement;
   };
-
-  console.log(window.pins);
-  console.log(window.adverts);
-
-  for (var i = 0; i < window.adverts[i]; i++) {
-    insertSelectedAdvertCard(window.pins[i], window.adverts[i]);
-  }
 })();

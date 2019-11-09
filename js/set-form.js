@@ -6,16 +6,10 @@
   var capacity = window.util.advertForm.querySelector('#capacity');
 
   var HousingPriceOnType = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 10000
-  };
-
-  var SetTime = {
-    '12:00': '12:00',
-    '13:00': '13:00',
-    '14:00': '14:00'
+    BUNGALO: 0,
+    FLAT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000
   };
 
   var checkForm = function () {
@@ -39,19 +33,23 @@
   var pricePerNight = window.util.advertForm.querySelector('#price');
 
   housingType.addEventListener('change', function () {
-    pricePerNight.min = HousingPriceOnType[housingType.value];
-    pricePerNight.placeholder = HousingPriceOnType[housingType.value];
+    pricePerNight.min = HousingPriceOnType[housingType.value.toUpperCase()];
+    pricePerNight.placeholder = HousingPriceOnType[housingType.value.toUpperCase()];
   });
 
   // настройка времени прибытия - убытия
   var timeIn = window.util.advertForm.querySelector('#timein');
   var timeOut = window.util.advertForm.querySelector('#timeout');
 
-  timeIn.addEventListener('change', function () {
-    timeOut.value = SetTime[timeIn.value];
-  });
+  var selectChangeClickHandler = function (evt) {
+    var select = evt.currentTarget;
+    if (select.name === 'timein') {
+      timeOut.value = select.value;
+    } else {
+      timeIn.value = select.value;
+    }
+  };
 
-  timeOut.addEventListener('change', function () {
-    timeIn.value = SetTime[timeOut.value];
-  });
+  timeIn.addEventListener('change', selectChangeClickHandler);
+  timeOut.addEventListener('change', selectChangeClickHandler);
 })();
