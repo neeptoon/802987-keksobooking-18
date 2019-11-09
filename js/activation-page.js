@@ -2,17 +2,6 @@
 
 (function () {
 
-  var renderPins = function (adverts) {
-    window.advertPinsList = window.util.mapAdverts.querySelector('.map__pins');
-    var pinsFragment = document.createDocumentFragment();
-    Array.from(adverts)
-      .slice(0, 5)
-      .forEach(function (item) {
-        pinsFragment.appendChild(window.getPin(item));
-      });
-    window.advertPinsList.appendChild(pinsFragment);
-  };
-
   var advertFormSubmitHandler = function (evt) {
     evt.preventDefault();
     window.load(window.returnStartPage, window.showError, 'POST', new FormData(window.util.advertForm));
@@ -38,7 +27,7 @@
       window.util.mapAdverts.classList.remove('map--faded');
       window.util.advertForm.classList.remove('ad-form--disabled');
       if (!isDownload) {
-        window.load(renderPins, window.showError, 'GET');
+        window.load(window.renderPins, window.showError, 'GET');
         isDownload = true;
       }
       window.util.advertForm.addEventListener('submit', advertFormSubmitHandler);
