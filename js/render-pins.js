@@ -21,7 +21,7 @@
       } else {
         sameHousingType = adverts.slice();
       }
-      render(sameHousingType);
+      render(sameHousingType.concat(adverts));
     };
 
     var render = function (pins) {
