@@ -2,26 +2,41 @@
 (function () {
   var AMOUNT_PINS = 5;
   var adverts = [];
-  var housingTypeFilter = document.querySelector('#housing-type');
+  var mapFilter = document.querySelector('.map__filters');
+  var housingTypeFilter = mapFilter.querySelector('#housing-type');
+  var housingPriceFilter = mapFilter.querySelector('#housing-price');
+  var housingRoomsFilter = mapFilter.querySelector('#housing-rooms');
+  var housingGuestsFilter = mapFilter.querySelector('#housing-guests');
+  var featuresFilter = mapFilter.querySelectorAll('[name = features]');
 
-  window.renderPins = function (data) {
-    adverts = data;
+
+  window.renderPins = function (request) {
+    adverts = request;
     updateAdverts();
   };
 
 
   var updateAdverts = function () {
-    var sameHousingType = adverts;
+    var filteredSelect = adverts;
 
-    var filterChangeHandler = function () {
+    var mapFilterChangeHandler = function () {
       if (housingTypeFilter.value !== 'any') {
-        sameHousingType = adverts.filter(function (it) {
+        filteredSelect = adverts.filter(function (it) {
           return it.offer.type === housingTypeFilter.value;
         });
       } else {
-        sameHousingType = adverts.slice();
+        filteredSelect = adverts.slice();
       }
-      render(sameHousingType.concat(adverts));
+      // filteredSelect = adverts.filter(function (it) {
+      //   return it.offer.type === housingTypeFilter.value;
+      // }).filter(function (it) {
+      //   return it.offer.rooms === housingRoomsFilter.value;
+      // }).filter(function (it) {
+      //   return it.offer.price === housingPriceFilter.value;
+      // }).filter(function (it) {
+      //   return it.offer.guests === housingGuestsFilter.value;
+      // });
+      render(filteredSelect);
     };
 
     var render = function (pins) {
@@ -36,8 +51,8 @@
       window.advertPinsList.append(pinsFragment);
     };
 
-    housingTypeFilter.addEventListener('change', filterChangeHandler);
-    render(sameHousingType);
+    mapFilter.addEventListener('change', mapFilterChangeHandler);
+    render(filteredSelect);
   };
 
 })();
