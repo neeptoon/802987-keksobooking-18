@@ -53,7 +53,6 @@
       }
 
       var checkedFiltersFeatures = Array.from(featuresFilters.querySelectorAll('input:checked'));
-      console.log(checkedFiltersFeatures);
       var valueCheckedFiltersFeatures = checkedFiltersFeatures.map(function (elem) {
         return elem.value;
       });
