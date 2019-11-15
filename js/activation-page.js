@@ -9,7 +9,7 @@
 
   var isDownload = false;
 
-  window.activationPage = function (isActivePage) {
+  window.pageActivation = function (isActivePage) {
     var filters = window.util.mapAdverts.querySelector('.map__filters-container');
     var filtersForm = filters.querySelector('.map__filters');
     var advertFormFields = window.util.advertForm.querySelectorAll('fieldset, select');
@@ -38,5 +38,5 @@
       isDownload = false;
     }
   };
-  window.activationPage(false);
+  window.pageActivation(false);
 })();
