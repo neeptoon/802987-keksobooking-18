@@ -16,13 +16,6 @@
 
     getRandomNumber: function (min, max) {
       return Math.round(min - 0.5 + Math.random() * (max - min + 1));
-    },
-
-    getRandomArray: function (arr) {
-      arr.sort(function () {
-        return 0.5 - Math.random();
-      });
-      return arr.slice(1, window.util.getRandomNumber(1, arr.length));
     }
   };
 })();
