@@ -76,7 +76,9 @@
       pins
         .slice(0, AMOUNT_PINS)
         .forEach(function (item) {
-          pinsFragment.appendChild(window.getPin(item));
+          if (item.offer) {
+            pinsFragment.appendChild(window.getPin(item));
+          }
         });
       window.advertPinsList.append(pinsFragment);
     };
@@ -84,5 +86,4 @@
     mapFilter.addEventListener('change', mapFilterChangeHandler);
     render(adverts);
   };
-
 })();
