@@ -32,5 +32,7 @@
     var promo = document.querySelector('.promo');
     promo.before(errorElement);
     addCloseErrorListener();
+    window.returnStartPage();
+    document.querySelector('.success').remove();
   };
 })();
