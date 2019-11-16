@@ -32,8 +32,9 @@
     advertCardDescription.textContent = advert.offer.description;
     advertCardPhotos.removeChild(advertCardPhoto);
     advertCardAvatar.src = advert.author.avatar;
+    advertCardAvatar.textContent = ' ';
 
-    advertCardFeatures.textContent = '';
+    advertCardFeatures.textContent = ' ';
 
     advert.offer.features.forEach(function (item) {
       var fragment = document.createDocumentFragment();
@@ -48,6 +49,11 @@
       var addPhoto = advertCardPhoto.cloneNode(true);
       advertCardPhotos.appendChild(addPhoto);
       addPhoto.src = item;
+    });
+    Array.from(advertCardElement.children).forEach(function (item) {
+      if (!item.textContent ) {
+        item.remove();
+      }
     });
     return advertCardElement;
   };
