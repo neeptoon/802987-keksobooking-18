@@ -51,7 +51,7 @@
       addPhoto.src = item;
     });
     Array.from(advertCardElement.children).forEach(function (item) {
-      if (!item.textContent ) {
+      if (!item.textContent) {
         item.remove();
       }
     });
