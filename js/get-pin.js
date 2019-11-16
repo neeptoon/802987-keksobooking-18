@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
   var popup = null;
 
   var closePopup = function () {
@@ -33,8 +35,6 @@
 
 
   window.getPin = function (advert) {
-    var PIN_WIDTH = 50;
-    var PIN_HEIGHT = 70;
 
     var pinClickHandler = function () {
       closePopup();
