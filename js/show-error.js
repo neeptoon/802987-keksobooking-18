@@ -6,7 +6,7 @@
     }
   };
 
-  var openError = function () {
+  var addCloseErrorListener = function () {
     var dialogError = document.querySelector('.error');
     var dialogErrorButton = document.querySelector('.error__button');
     dialogError.addEventListener('click', closeError);
@@ -21,7 +21,7 @@
     dialogError.removeEventListener('click', closeError);
     dialogErrorButton.removeEventListener('click', closeError);
     document.removeEventListener('keydown', onErrorEscPress);
-    window.activationPage(false);
+    window.pageActivation(false);
   };
 
   window.showError = function () {
@@ -31,6 +31,8 @@
     var errorElement = errorTemplate.cloneNode(true);
     var promo = document.querySelector('.promo');
     promo.before(errorElement);
-    openError();
+    addCloseErrorListener();
+    window.returnStartPage();
+    document.querySelector('.success').remove();
   };
 })();

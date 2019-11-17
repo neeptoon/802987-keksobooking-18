@@ -12,7 +12,7 @@
     PALACE: 10000
   };
 
-  var checkForm = function () {
+  var advertFormClickHandler = function () {
     if (+roomNumber.value < +capacity.value && capacity.value !== '0') {
       roomNumber.setCustomValidity('Не хватит места для гостей');
     } else if (roomNumber.value.length > capacity.value.length && capacity.value !== '0') {
@@ -22,7 +22,7 @@
     }
   };
 
-  window.util.advertForm.addEventListener('click', checkForm);
+  window.util.advertForm.addEventListener('click', advertFormClickHandler);
   window.util.advertForm.addEventListener('change', function () {
     roomNumber.setCustomValidity('');
     capacity.setCustomValidity('');

@@ -30,9 +30,8 @@
     advertCardCapacity.textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
     advertCardCheck.textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     advertCardDescription.textContent = advert.offer.description;
-    advertCardPhotos.removeChild(advertCardPhoto);
+    advertCardPhotos.textContent = '';
     advertCardAvatar.src = advert.author.avatar;
-
     advertCardFeatures.textContent = '';
 
     advert.offer.features.forEach(function (item) {
@@ -49,6 +48,13 @@
       advertCardPhotos.appendChild(addPhoto);
       addPhoto.src = item;
     });
+
+    Array.from(advertCardElement.children).forEach(function (item) {
+      if (!item.hasChildNodes() && !item.src && !item.textContent) {
+        item.classList.add('visually-hidden');
+      }
+    });
+
     return advertCardElement;
   };
 })();
