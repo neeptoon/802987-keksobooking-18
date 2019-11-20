@@ -10,6 +10,7 @@
   var housingGuestsFilter = mapFilter.querySelector('#housing-guests');
   var featuresFilters = mapFilter.querySelector('#housing-features');
 
+
   window.renderPins = function (request) {
     var adverts = request;
     updateAdverts(adverts);
@@ -29,9 +30,9 @@
         filteredField = filteredField.filter(function (it) {
           if (housingPriceFilter.value === 'low') {
             return it.offer.price < MIN_PRICE;
-          } else if (housingPriceFilter === 'middle') {
-            return it.offer.price > MIN_PRICE && it.offer.price < MAX_PRICE;
-          } else if (housingPriceFilter === 'high') {
+          } else if (housingPriceFilter.value === 'middle') {
+            return it.offer.price >= MIN_PRICE && it.offer.price <= MAX_PRICE;
+          } else if (housingPriceFilter.value === 'high') {
             return it.offer.price > MAX_PRICE;
           }
           return it;
@@ -63,6 +64,7 @@
         });
         return count === valueCheckedFiltersFeatures.length;
       });
+
 
       render(filteredField);
     });
