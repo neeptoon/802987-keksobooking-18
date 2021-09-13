@@ -113,4 +113,19 @@ let getCard = function (advert) {
 
 }
 
+let att = document.querySelector('.attempt');
+
+att.setAttribute('class', 'hero heflsa');
+
+console.log(document);
+console.log('hello world');
+
+
 document.querySelector('.map').classList.remove('map--faded');
+
+
+
+
+
+
+
